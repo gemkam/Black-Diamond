@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Painters | Fine Arts & Hand Painted Acrylic Work</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        showroom: {
+                            bg: '#18120b',       /* Deep Warm Gallery Dark */
+                            card: '#241b12',     /* Rich Amber-Tinted Card */
+                            surface: '#0f0b07',  /* Deepest Gallery Surface */
+                            accent: '#d97706',   /* Warm Artisan Amber/Gold */
+                            gold: '#fbbf24',     /* Bright Gold Highlight */
+                            muted: '#a89f91'     /* Warm Muted Stone */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Artwork Image Hover Transition Styles */
+        .img-swap-container { position: relative; overflow: hidden; background: #18120b; }
+        .img-swap-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-primary { opacity: 1; z-index: 10; transform: scale(1); }
+        .img-secondary { opacity: 0; z-index: 20; transform: scale(1.04); }
+        
+        .img-swap-container:hover .img-primary { opacity: 0; transform: scale(1.04); }
+        .img-swap-container:hover .img-secondary { opacity: 1; transform: scale(1); }
+
+        /* Fullscreen Hero Slider Animation: Fade In + Zoom Out Together with Bright, Vivid Filter */
+        @keyframes heroZoomOut {
+            0% { transform: scale(1.12); opacity: 0; filter: brightness(1.15) saturate(1.2); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1.2) saturate(1.25); }
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.12);
+            filter: brightness(1.15) saturate(1.2);
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            animation: heroZoomOut 6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-showroom-surface text-slate-100 font-sans antialiased selection:bg-showroom-accent selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-showroom-bg border-b border-amber-950/60 text-amber-200/80 text-xs tracking-wider uppercase font-medium text-center py-2.5 px-4 relative z-50">
+        ✦ Super Painters — Master Fine Arts, Custom Hand-Painted Acrylics & Worldwide Shipping Available ✦
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-showroom-surface/90 backdrop-blur-md border-b border-amber-950/60">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl lg:text-3xl font-heading font-extrabold tracking-tight text-white flex items-center gap-2">
+                Super <span class="text-showroom-accent">Painters</span>
+            </a>
+            <nav class="hidden md:flex space-x-10 text-xs font-semibold tracking-widest uppercase text-showroom-muted">
+                <a href="#catalog" class="hover:text-white transition-colors">Art Gallery</a>
+                <a href="#features" class="hover:text-white transition-colors">Our Craft</a>
+                <a href="#services" class="hover:text-showroom-accent transition-colors">Custom Commission</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-showroom-card border border-amber-900/40 hover:border-showroom-accent transition-all group">
+                    <svg class="w-5 h-5 text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-showroom-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fullscreen Immersive Hero Section with Bright Fade + Zoom-Out -->
+    <section class="relative w-full h-[85vh] min-h-[600px] flex items-end pb-16 overflow-hidden">
+        <!-- Background Slider Container with Bright Artwork Imagery -->
+        <div id="hero-slider" class="absolute inset-0 w-full h-full z-0">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1800&q=85" alt="Fine Art Gallery Banner" class="hero-slide active">
+            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1800&q=85" alt="Hand Painted Canvas Banner" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1800&q=85" alt="Acrylic Masterpiece Banner" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1800&q=85" alt="Abstract Fine Art Banner" class="hero-slide">
+            <!-- Subtle Dark Gradient Overlay at Bottom Only for Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-showroom-surface via-showroom-surface/40 to-transparent z-10"></div>
+        </div>
+
+        <!-- Hero Content Placed at Bottom -->
+        <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full space-y-6" data-aos="fade-up">
+            <span class="text-xs uppercase tracking-widest text-showroom-accent font-semibold px-3.5 py-1.5 bg-showroom-surface/90 backdrop-blur-md rounded-full inline-block border border-amber-900/40">
+                Original Fine Arts ✦ Hand-Painted Acrylics
+            </span>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold leading-tight tracking-tight text-white max-w-4xl drop-shadow-md">
+                Elevate Your Space With <span class="text-transparent bg-clip-text bg-gradient-to-r from-showroom-accent to-amber-200">Masterpieces</span>
+            </h1>
+            <p class="text-amber-100/90 text-base sm:text-lg leading-relaxed font-light max-w-2xl drop-shadow">
+                Discover breathtaking hand-painted acrylic canvases, vibrant abstract expressions, and timeless fine art created by elite professional artists.
+            </p>
+            <div class="pt-2 flex items-center space-x-6">
+                <a href="#catalog" class="px-8 py-4 bg-showroom-accent text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-amber-600 transition-all shadow-lg shadow-showroom-accent/20">
+                    Explore Gallery
+                </a>
+                <a href="#services" class="px-8 py-4 bg-showroom-card/90 backdrop-blur-md border border-amber-900/40 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-showroom-card transition-all">
+                    Custom Commission
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section with Category Filter Buttons -->
+    <main id="catalog" class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-amber-950/60">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10" data-aos="fade-up">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-showroom-accent font-semibold mb-2">Art Collection</p>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white">Available Fine Art Works</h2>
+            </div>
+            <p class="text-showroom-muted text-sm mt-2 md:mt-0 font-light">Hover over any canvas to view texture detail or alternate perspective.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-3 mb-10" data-aos="fade-up">
+            <button onclick="filterCatalog('All')" id="btn-All" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-accent text-white transition-all shadow-md">All Artworks</button>
+            <button onclick="filterCatalog('Abstract')" id="btn-Abstract" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-amber-900/40 transition-all">Abstract</button>
+            <button onclick="filterCatalog('Landscape')" id="btn-Landscape" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-amber-900/40 transition-all">Landscape</button>
+            <button onclick="filterCatalog('Modern Portrait')" id="btn-Modern Portrait" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-amber-900/40 transition-all">Modern Portrait</button>
+            <button onclick="filterCatalog('Texture & Gold Leaf')" id="btn-Texture & Gold Leaf" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-amber-900/40 transition-all">Texture & Gold Leaf</button>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <!-- Why Choose Us Section -->
+    <section id="features" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="bg-showroom-card border border-amber-900/40 p-8 sm:p-14 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">01</div>
+                <h3 class="font-heading font-bold text-lg text-white">100% Hand-Painted</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Every piece is meticulously hand-crafted by master artists using premium professional-grade acrylics and heavy cotton canvases.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">02</div>
+                <h3 class="font-heading font-bold text-lg text-white">Certificate of Authenticity</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Each artwork comes with an official signed certificate verifying its originality and artist pedigree.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">03</div>
+                <h3 class="font-heading font-bold text-lg text-white">Secure Art Shipping</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Professionally rolled or crated gallery packaging with insured global shipping right to your doorstep.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Booking Consultation Section -->
+    <section id="services" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-amber-950 via-stone-900 to-showroom-card p-8 sm:p-16 shadow-2xl border border-amber-900/50" data-aos="zoom-in">
+            <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-showroom-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 max-w-2xl mx-auto text-center space-y-6">
+                <span class="inline-block bg-showroom-accent text-white text-[11px] font-bold tracking-widest uppercase px-4 py-1.5 rounded-full shadow-md">
+                    Custom Commission ✦ Tailored Sizes & Palettes
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight text-white">
+                    Want a Custom Hand-Painted Masterpiece?
+                </h2>
+                <p class="text-showroom-muted text-base font-light leading-relaxed">
+                    Have a specific wall dimension, color scheme, or artistic vision in mind? Commission our master painters to create a bespoke acrylic painting uniquely for you.
+                </p>
+                <div class="pt-2">
+                    <a href="#contact" class="px-8 py-4 bg-white text-showroom-surface font-bold text-xs uppercase tracking-widest hover:bg-showroom-accent hover:text-white transition-all rounded-lg inline-block shadow-lg">
+                        Consult with Lead Artist
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Inquiry Section -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="border border-amber-900/40 p-8 sm:p-14 rounded-2xl max-w-3xl mx-auto space-y-6 bg-showroom-card" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-showroom-accent font-semibold">Direct Inquiry</span>
+                <h2 class="text-3xl font-heading font-bold text-white">Visit Gallery or Send a Message</h2>
+                <p class="text-showroom-muted text-sm font-light">Super Painters Fine Arts Studio. Open Monday to Saturday.</p>
+            </div>
+            <form onsubmit="handleInquiry(event)" class="space-y-4 pt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" required placeholder="Your Name..." class="w-full px-4 py-3 bg-showroom-surface border border-amber-900/40 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent">
+                    <input type="tel" required placeholder="Phone / WhatsApp Number..." class="w-full px-4 py-3 bg-showroom-surface border border-amber-900/40 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent">
+                </div>
+                <textarea rows="4" required placeholder="Which artwork are you interested in or what are your custom painting specifications?" class="w-full px-4 py-3 bg-showroom-surface border border-amber-900/40 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent"></textarea>
+                <button type="submit" class="w-full py-4 bg-showroom-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-amber-600 transition-all">
+                    Send Inquiry via WhatsApp
+                </button>
+            </form>
+            <p id="inquiry-success" class="text-xs text-showroom-gold font-semibold text-center hidden">✓ Inquiry ready! Redirecting to WhatsApp...</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-amber-950/60 py-12 text-center text-xs text-showroom-muted">
+        <p>&copy; 2026 Super Painters Fine Arts. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Slide-out Cart / Inquiries Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-showroom-card border-l border-amber-900/40 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-amber-900/40 flex items-center justify-between">
+                    <h3 class="text-lg font-heading font-bold text-white">Your Selected Artworks</h3>
+                    <button onclick="toggleCart()" class="text-showroom-muted hover:text-white p-2">✕</button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-amber-900/40 bg-showroom-surface">
+                    <div class="flex justify-between text-sm font-semibold mb-4 text-white">
+                        <span>Total Estimated:</span>
+                        <span id="cart-subtotal" class="font-heading font-bold text-showroom-accent">$0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full py-4 bg-showroom-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-amber-600 transition-all text-center block">
+                        Acquire / Inquire via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 80, duration: 800 });
+
+        // Hero Slider Rotation with Bright Fade + Zoom
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Art Gallery Catalog (Refreshed with exquisite hand-painted acrylic & fine art paintings)
+        const artworks = [
+            {
+                id: 1, name: "Ethereal Golden Horizon", category: "Texture & Gold Leaf", price: 1250, oldPrice: 1500,
+                img1: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1200&q=85", badge: "Masterpiece"
+            },
+            {
+                id: 2, name: "Crimson Symphony Abstract", category: "Abstract", price: 950, oldPrice: 1150,
+                img1: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=85", badge: "Best Seller"
+            },
+            {
+                id: 3, name: "Emerald Forest Mist", category: "Landscape", price: 850, oldPrice: 1000,
+                img1: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=85", badge: "Original Canvas"
+            },
+            {
+                id: 4, name: "Serenade in Cobalt", category: "Abstract", price: 1100, oldPrice: 1350,
+                img1: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85", badge: "Vibrant Acrylic"
+            },
+            {
+                id: 5, name: "Velvet Gaze Modern Portrait", category: "Modern Portrait", price: 1450, oldPrice: 1750,
+                img1: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=85", badge: "Featured Portrait"
+            },
+            {
+                id: 6, name: "Solaris Textured Impasto", category: "Texture & Gold Leaf", price: 1600, oldPrice: 1900,
+                img1: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1200&q=85", badge: "Heavy Texture"
+            },
+            {
+                id: 7, name: "Twilight Alpine Majesty", category: "Landscape", price: 900, oldPrice: 1100,
+                img1: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=85", badge: "Scenic View"
+            },
+            {
+                id: 8, name: "Neon Mirage Expressionism", category: "Abstract", price: 1300, oldPrice: 1550,
+                img1: "https://images.unsplash.com/photo-1549887534-1541e9326642?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=85", badge: "Contemporary"
+            },
+            {
+                id: 9, name: "Minimalist Earth Tones", category: "Texture & Gold Leaf", price: 780, oldPrice: 950,
+                img1: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=85", badge: "Minimalist"
+            }
+        ];
+
+        let currentFilter = 'All';
+        let cart = JSON.parse(localStorage.getItem('super_painters_cart')) || [];
+
+        function filterCatalog(category) {
+            currentFilter = category;
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-amber-900/40 transition-all";
+            });
+            document.getElementById(`btn-${category}`).className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-accent text-white transition-all shadow-md";
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const filtered = currentFilter === 'All' ? artworks : artworks.filter(a => a.category === currentFilter);
+            
+            grid.innerHTML = filtered.map((a) => `
+                <div class="bg-showroom-card border border-amber-900/40 rounded-xl overflow-hidden flex flex-col group shadow-lg hover:border-showroom-accent/50 transition-all" data-aos="fade-up">
+                    <div class="relative h-[260px] w-full img-swap-container">
+                        <span class="absolute top-4 left-4 z-30 bg-showroom-surface/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded border border-amber-900/40">
+                            ${a.badge}
+                        </span>
+                        <img src="${a.img1}" alt="${a.name}" class="img-primary">
+                        <img src="${a.img2}" alt="${a.name} detail" class="img-secondary">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1 justify-between bg-showroom-card">
+                        <div>
+                            <span class="text-[11px] text-showroom-accent uppercase tracking-widest font-semibold">${a.category}</span>
+                            <h3 class="font-heading font-bold text-lg text-white mt-1 group-hover:text-showroom-accent transition-colors">${a.name}</h3>
+                        </div>
+                        <div class="pt-6 flex items-center justify-between border-t border-amber-900/40 mt-6">
+                            <div>
+                                <span class="text-white font-heading font-bold text-base">$${a.price.toLocaleString()}</span>
+                                <span class="text-showroom-muted text-xs line-through block">$${a.oldPrice.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart(${a.id})" class="px-4 py-2.5 bg-showroom-surface border border-amber-900/40 text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-showroom-accent hover:border-showroom-accent transition-all">
+                                Inquire / Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(artId) {
+            const art = artworks.find(a => a.id === artId);
+            const existing = cart.find(item => item.id === artId);
+            if (existing) { existing.quantity += 1; } else { cart.push({ ...art, quantity: 1 }); }
+            updateCart();
+            toggleCart();
+        }
+
+        function updateQuantity(artId, change) {
+            const item = cart.find(i => i.id === artId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== artId);
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('super_painters_cart', JSON.stringify(cart));
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            if(!countEl) return;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countEl.textContent = totalCount;
+            subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="text-center text-showroom-muted py-12 text-sm font-light">No artworks added to your inquiry list yet.</p>`;
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between bg-showroom-surface p-4 rounded-xl border border-amber-900/40">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.img1}" class="w-14 h-14 object-cover rounded-lg" alt="">
+                        <div>
+                            <h4 class="font-heading font-bold text-xs text-white">${item.name}</h4>
+                            <p class="text-showroom-accent text-xs font-semibold mt-1">$${item.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-showroom-card border border-amber-900/40 text-white text-xs font-bold flex items-center justify-center">-</button>
+                        <span class="text-xs font-bold w-5 text-center text-white">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-showroom-card border border-amber-900/40 text-white text-xs font-bold flex items-center justify-center">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function handleInquiry(e) {
+            e.preventDefault();
+            document.getElementById('inquiry-success').classList.remove('hidden');
+            setTimeout(() => {
+                window.open(`https://wa.me/?text=${encodeURIComponent("Hello Super Painters, I would like to inquire about visiting your gallery and checking fine art availability.")}`, '_blank');
+            }, 800);
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('Your inquiry list is empty!');
+            let message = "As-salamu alaykum! I am interested in acquiring the following artworks from Super Painters:\n\n";
+            cart.forEach(i => { message += `- ${i.name} (Qty: ${i.quantity}) - $${(i.price * i.quantity).toLocaleString()}\n`; });
+            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            message += `\nEstimated Total: $${total.toLocaleString()}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>

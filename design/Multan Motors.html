@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multan Motors | Luxury & Performance Car Showroom</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        showroom: {
+                            bg: '#0f172a',       /* Deep Slate Dark */
+                            card: '#1e293b',     /* Lighter Slate Card */
+                            surface: '#090d16',  /* Darkest Surface */
+                            accent: '#3b82f6',   /* Electric Blue */
+                            gold: '#f59e0b',     /* Metallic Amber/Gold */
+                            muted: '#94a3b8'     /* Cool Gray */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Car Image Hover Transition Styles */
+        .img-swap-container { position: relative; overflow: hidden; background: #0f172a; }
+        .img-swap-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-primary { opacity: 1; z-index: 10; transform: scale(1); }
+        .img-secondary { opacity: 0; z-index: 20; transform: scale(1.04); }
+        
+        .img-swap-container:hover .img-primary { opacity: 0; transform: scale(1.04); }
+        .img-swap-container:hover .img-secondary { opacity: 1; transform: scale(1); }
+
+        /* Fullscreen Hero Slider Animation: Fade In + Zoom Out Together with Bright, Vivid Filter */
+        @keyframes heroZoomOut {
+            0% { transform: scale(1.12); opacity: 0; filter: brightness(1.15) saturate(1.2); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1.2) saturate(1.25); }
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.12);
+            filter: brightness(1.15) saturate(1.2);
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            animation: heroZoomOut 6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-showroom-surface text-slate-100 font-sans antialiased selection:bg-showroom-accent selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-showroom-bg border-b border-slate-800 text-slate-300 text-xs tracking-wider uppercase font-medium text-center py-2.5 px-4 relative z-50">
+        ✦ Multan Motors — Exclusive Import, Inspection & Nationwide Delivery Available ✦
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-showroom-surface/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl lg:text-3xl font-heading font-extrabold tracking-tight text-white flex items-center gap-2">
+                Multan <span class="text-showroom-accent">Motors</span>
+            </a>
+            <nav class="hidden md:flex space-x-10 text-xs font-semibold tracking-widest uppercase text-showroom-muted">
+                <a href="#catalog" class="hover:text-white transition-colors">Showroom Inventory</a>
+                <a href="#features" class="hover:text-white transition-colors">Why Us</a>
+                <a href="#services" class="hover:text-showroom-accent transition-colors">Services</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-showroom-card border border-slate-700 hover:border-showroom-accent transition-all group">
+                    <svg class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-showroom-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fullscreen Immersive Hero Section with Bright Fade + Zoom-Out -->
+    <section class="relative w-full h-[85vh] min-h-[600px] flex items-end pb-16 overflow-hidden">
+        <!-- Background Slider Container with Bright Imagery -->
+        <div id="hero-slider" class="absolute inset-0 w-full h-full z-0">
+            <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1800&q=85" alt="Bright Luxury Car Banner" class="hero-slide active">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1800&q=85" alt="Bright Sports Car Banner" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=85" alt="Bright Performance Banner" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1800&q=85" alt="Bright Modern Vehicle Banner" class="hero-slide">
+            <!-- Subtle Dark Gradient Overlay at Bottom Only for Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-showroom-surface via-showroom-surface/40 to-transparent z-10"></div>
+        </div>
+
+        <!-- Hero Content Placed at Bottom -->
+        <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full space-y-6" data-aos="fade-up">
+            <span class="text-xs uppercase tracking-widest text-showroom-accent font-semibold px-3.5 py-1.5 bg-showroom-surface/90 backdrop-blur-md rounded-full inline-block border border-slate-700">
+                Pakistan Domestic Fleet ✦ Ready Delivery
+            </span>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold leading-tight tracking-tight text-white max-w-4xl drop-shadow-md">
+                Drive Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-showroom-accent to-blue-400">Dream Machine</span>
+            </h1>
+            <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-light max-w-2xl drop-shadow">
+                Browse Pakistan's favorite road vehicles — from rugged Toyota 4x4s and comfortable sedans to high-performance sports cars and reliable medium crossovers.
+            </p>
+            <div class="pt-2 flex items-center space-x-6">
+                <a href="#catalog" class="px-8 py-4 bg-showroom-accent text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-blue-600 transition-all shadow-lg shadow-showroom-accent/20">
+                    Explore Inventory
+                </a>
+                <a href="#services" class="px-8 py-4 bg-showroom-card/90 backdrop-blur-md border border-slate-700 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-showroom-card transition-all">
+                    Custom Import
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section with Category Filter Buttons -->
+    <main id="catalog" class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-slate-800">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10" data-aos="fade-up">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-showroom-accent font-semibold mb-2">Showroom Stock</p>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white">Available Vehicles</h2>
+            </div>
+            <p class="text-showroom-muted text-sm mt-2 md:mt-0 font-light">Hover over any card to view interior or alternate angle.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-3 mb-10" data-aos="fade-up">
+            <button onclick="filterCatalog('All')" id="btn-All" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-accent text-white transition-all shadow-md">All Vehicles</button>
+            <button onclick="filterCatalog('4x4 SUV')" id="btn-4x4 SUV" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-slate-700 transition-all">4x4 SUVs</button>
+            <button onclick="filterCatalog('Sedan')" id="btn-Sedan" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-slate-700 transition-all">Sedans</button>
+            <button onclick="filterCatalog('Sports Car')" id="btn-Sports Car" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-slate-700 transition-all">Sports Cars</button>
+            <button onclick="filterCatalog('Medium & Large')" id="btn-Medium & Large" class="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-slate-700 transition-all">Medium & Large</button>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <!-- Why Choose Us Section -->
+    <section id="features" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="bg-showroom-card border border-slate-800 p-8 sm:p-14 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">01</div>
+                <h3 class="font-heading font-bold text-lg text-white">Verified Inspection</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Every vehicle undergoes a thorough 150-point engine and suspension check suited for local road conditions.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">02</div>
+                <h3 class="font-heading font-bold text-lg text-white">Transparent Pricing</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Clear market rates with complete excise registration support and documentation transfer.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-showroom-accent/10 flex items-center justify-center text-showroom-accent text-xl font-bold">03</div>
+                <h3 class="font-heading font-bold text-lg text-white">Nationwide Shipping</h3>
+                <p class="text-sm text-showroom-muted font-light leading-relaxed">Secure car carrier transport available to Lahore, Karachi, Islamabad, Peshawar, and across Pakistan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Booking Consultation Section -->
+    <section id="services" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-showroom-card p-8 sm:p-16 shadow-2xl border border-slate-700" data-aos="zoom-in">
+            <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-showroom-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 max-w-2xl mx-auto text-center space-y-6">
+                <span class="inline-block bg-showroom-accent text-white text-[11px] font-bold tracking-widest uppercase px-4 py-1.5 rounded-full shadow-md">
+                    Custom Vehicle Sourcing ✦ Import Assistance
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight text-white">
+                    Looking for a Specific Model?
+                </h2>
+                <p class="text-showroom-muted text-base font-light leading-relaxed">
+                    Can't find the exact trim or color you want in our current lot? Tell us your preferred specifications and our import team will source it for you.
+                </p>
+                <div class="pt-2">
+                    <a href="#contact" class="px-8 py-4 bg-white text-showroom-surface font-bold text-xs uppercase tracking-widest hover:bg-showroom-accent hover:text-white transition-all rounded-lg inline-block shadow-lg">
+                        Contact Showroom Manager
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Inquiry Section -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="border border-slate-800 p-8 sm:p-14 rounded-2xl max-w-3xl mx-auto space-y-6 bg-showroom-card" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-showroom-accent font-semibold">Direct Inquiry</span>
+                <h2 class="text-3xl font-heading font-bold text-white">Visit or Send a Message</h2>
+                <p class="text-showroom-muted text-sm font-light">Multan Motors Showroom, Main Boulevard. Open Monday to Saturday.</p>
+            </div>
+            <form onsubmit="handleInquiry(event)" class="space-y-4 pt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" required placeholder="Your Name..." class="w-full px-4 py-3 bg-showroom-surface border border-slate-700 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent">
+                    <input type="tel" required placeholder="Phone / WhatsApp Number..." class="w-full px-4 py-3 bg-showroom-surface border border-slate-700 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent">
+                </div>
+                <textarea rows="4" required placeholder="Which car are you interested in or what are your requirements?" class="w-full px-4 py-3 bg-showroom-surface border border-slate-700 rounded-lg text-white placeholder-showroom-muted/50 text-sm focus:outline-none focus:border-showroom-accent"></textarea>
+                <button type="submit" class="w-full py-4 bg-showroom-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-blue-600 transition-all">
+                    Send Inquiry via WhatsApp
+                </button>
+            </form>
+            <p id="inquiry-success" class="text-xs text-showroom-gold font-semibold text-center hidden">✓ Inquiry ready! Redirecting to WhatsApp...</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 text-center text-xs text-showroom-muted">
+        <p>&copy; 2026 Multan Motors Showroom. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Slide-out Cart / Inquiries Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-showroom-card border-l border-slate-800 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                    <h3 class="text-lg font-heading font-bold text-white">Your Selected Vehicles</h3>
+                    <button onclick="toggleCart()" class="text-showroom-muted hover:text-white p-2">✕</button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-slate-800 bg-showroom-surface">
+                    <div class="flex justify-between text-sm font-semibold mb-4 text-white">
+                        <span>Total Estimated:</span>
+                        <span id="cart-subtotal" class="font-heading font-bold text-showroom-accent">PKR 0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full py-4 bg-showroom-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-blue-600 transition-all text-center block">
+                        Book / Inquire via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 80, duration: 800 });
+
+        // Hero Slider Rotation with Bright Fade + Zoom
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Showroom Catalog (Refreshed with bright, specific Pakistan-running car images)
+        const cars = [
+            {
+                id: 1, name: "Toyota Hilux Revo Rocco", category: "4x4 SUV", price: 16500000, oldPrice: 17200000,
+                img1: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85", badge: "Top 4x4 Pickup"
+            },
+            {
+                id: 2, name: "Toyota Land Cruiser ZX", category: "4x4 SUV", price: 78500000, oldPrice: 82000000,
+                img1: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=85", badge: "Luxury 4x4"
+            },
+            {
+                id: 3, name: "Honda Civic RS Turbo", category: "Sedan", price: 9900000, oldPrice: 10500000,
+                img1: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=85", badge: "Popular Sedan"
+            },
+            {
+                id: 4, name: "Toyota Corolla Altis Grande", category: "Sedan", price: 7900000, oldPrice: 8400000,
+                img1: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=85", badge: "Nation's Choice"
+            },
+            {
+                id: 5, name: "Porsche 911 Carrera GTS", category: "Sports Car", price: 65000000, oldPrice: 69000000,
+                img1: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85", badge: "Exotic Sports"
+            },
+            {
+                id: 6, name: "Audi e-tron GT", category: "Sports Car", price: 58000000, oldPrice: 62000000,
+                img1: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=85", badge: "Electric Performance"
+            },
+            {
+                id: 7, name: "Kia Sportage AWD Alpha", category: "Medium & Large", price: 9800000, oldPrice: 10400000,
+                img1: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85", badge: "Best Crossover"
+            },
+            {
+                id: 8, name: "Hyundai Tucson Ultimate", category: "Medium & Large", price: 10200000, oldPrice: 10900000,
+                img1: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85", badge: "Family SUV"
+            },
+            {
+                id: 9, name: "Suzuki Swift GLX CVT", category: "Medium & Large", price: 4700000, oldPrice: 5100000,
+                img1: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=85",
+                img2: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=85", badge: "City Hatchback"
+            }
+        ];
+
+        let currentFilter = 'All';
+        let cart = JSON.parse(localStorage.getItem('multan_motors_cart')) || [];
+
+        function filterCatalog(category) {
+            currentFilter = category;
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-card text-showroom-muted hover:text-white border border-slate-700 transition-all";
+            });
+            document.getElementById(`btn-${category}`).className = "px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest bg-showroom-accent text-white transition-all shadow-md";
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const filtered = currentFilter === 'All' ? cars : cars.filter(c => c.category === currentFilter);
+            
+            grid.innerHTML = filtered.map((c) => `
+                <div class="bg-showroom-card border border-slate-800 rounded-xl overflow-hidden flex flex-col group shadow-lg hover:border-showroom-accent/50 transition-all" data-aos="fade-up">
+                    <div class="relative h-[260px] w-full img-swap-container">
+                        <span class="absolute top-4 left-4 z-30 bg-showroom-surface/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded border border-slate-700">
+                            ${c.badge}
+                        </span>
+                        <img src="${c.img1}" alt="${c.name}" class="img-primary">
+                        <img src="${c.img2}" alt="${c.name} interior" class="img-secondary">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1 justify-between bg-showroom-card">
+                        <div>
+                            <span class="text-[11px] text-showroom-accent uppercase tracking-widest font-semibold">${c.category}</span>
+                            <h3 class="font-heading font-bold text-lg text-white mt-1 group-hover:text-showroom-accent transition-colors">${c.name}</h3>
+                        </div>
+                        <div class="pt-6 flex items-center justify-between border-t border-slate-800 mt-6">
+                            <div>
+                                <span class="text-white font-heading font-bold text-base">PKR ${c.price.toLocaleString()}</span>
+                                <span class="text-showroom-muted text-xs line-through block">PKR ${c.oldPrice.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart(${c.id})" class="px-4 py-2.5 bg-showroom-surface border border-slate-700 text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-showroom-accent hover:border-showroom-accent transition-all">
+                                Inquire / Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(carId) {
+            const car = cars.find(c => c.id === carId);
+            const existing = cart.find(item => item.id === carId);
+            if (existing) { existing.quantity += 1; } else { cart.push({ ...car, quantity: 1 }); }
+            updateCart();
+            toggleCart();
+        }
+
+        function updateQuantity(carId, change) {
+            const item = cart.find(i => i.id === carId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== carId);
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('multan_motors_cart', JSON.stringify(cart));
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            if(!countEl) return;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countEl.textContent = totalCount;
+            subtotalEl.textContent = `PKR ${subtotal.toLocaleString()}`;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="text-center text-showroom-muted py-12 text-sm font-light">No vehicles added to your inquiry list yet.</p>`;
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between bg-showroom-surface p-4 rounded-xl border border-slate-800">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.img1}" class="w-14 h-14 object-cover rounded-lg" alt="">
+                        <div>
+                            <h4 class="font-heading font-bold text-xs text-white">${item.name}</h4>
+                            <p class="text-showroom-accent text-xs font-semibold mt-1">PKR ${item.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-showroom-card border border-slate-700 text-white text-xs font-bold flex items-center justify-center">-</button>
+                        <span class="text-xs font-bold w-5 text-center text-white">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-showroom-card border border-slate-700 text-white text-xs font-bold flex items-center justify-center">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function handleInquiry(e) {
+            e.preventDefault();
+            document.getElementById('inquiry-success').classList.remove('hidden');
+            setTimeout(() => {
+                window.open(`https://wa.me/?text=${encodeURIComponent("Hello Multan Motors, I would like to inquire about visiting your showroom and checking vehicle availability.")}`, '_blank');
+            }, 800);
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('Your inquiry list is empty!');
+            let message = "As-salamu alaykum! I am interested in the following vehicles from Multan Motors:\n\n";
+            cart.forEach(i => { message += `- ${i.name} (Qty: ${i.quantity}) - PKR ${(i.price * i.quantity).toLocaleString()}\n`; });
+            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            message += `\nEstimated Total: PKR ${total.toLocaleString()}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shalimar Heritage & Artisan Guild | Truck Art & Craft Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        truck: { 900: '#140a23', 800: '#1e1135', pink: '#ff2a8d', cyan: '#00e5ff', gold: '#ffd700', sand: '#fdfbf7' }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel { background: rgba(30, 17, 53, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 215, 0, 0.25); }
+        .glass-badge { background: rgba(20, 10, 35, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(0, 229, 255, 0.3); }
+        
+        .img-swap-container:hover .img-primary { opacity: 0; transform: scale(1.03); }
+        .img-swap-container:hover .img-secondary { opacity: 1; transform: scale(1); }
+        .img-secondary { opacity: 0; transition: all 0.6s ease-in-out; transform: scale(1.03); }
+        .img-primary { transition: all 0.6s ease-in-out; transform: scale(1); }
+
+        .hero-slide { opacity: 0; transition: opacity 1s ease-in-out; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .hero-slide.active { opacity: 1; }
+    </style>
+</head>
+<body class="bg-truck-900 text-truck-sand font-sans antialiased selection:bg-truck-pink selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-truck-pink via-truck-gold to-truck-cyan text-truck-900 text-xs sm:text-sm font-bold text-center py-2.5 px-4 tracking-wider uppercase shadow-lg">
+        🎨 Shalimar Guild Showcase: Hand-Painted Masterpieces & Heritage Craft | Express Delivery Across Pakistan 🚚
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-truck-gold/30 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl sm:text-2xl font-serif text-truck-gold font-bold tracking-wide">Shalimar Guild</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <a href="#catalog" class="hover:text-truck-cyan transition-colors">Massive Gallery</a>
+                <a href="#story" class="hover:text-truck-cyan transition-colors">Artisan Legacy</a>
+                <a href="#newsletter" class="hover:text-truck-cyan transition-colors">VIP Club</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative p-2 rounded-full glass-badge hover:border-truck-pink transition-all group">
+                    <svg class="w-6 h-6 text-truck-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-truck-pink text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section: Full Space Slider on Top, Heading & Text Below -->
+    <section class="relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div class="relative rounded-3xl overflow-hidden glass-panel p-6 sm:p-10 border border-truck-pink/40 shadow-2xl flex flex-col gap-8" data-aos="fade-up">
+            
+            <!-- Full Space Hero Image Slider Container -->
+            <div class="w-full relative h-[380px] sm:h-[480px] lg:h-[540px] rounded-2xl overflow-hidden glass-badge border border-truck-cyan/40 shadow-2xl flex items-center justify-center">
+                <span class="absolute top-4 left-4 z-30 glass-badge text-truck-gold text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                    Featured Products
+                </span>
+                <!-- Complete 10 Image Slider Rotation including Guitars and Cups -->
+                <div id="hero-slider" class="w-full h-full relative">
+                    <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 1" class="hero-slide active">
+                    <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 2" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 3" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1581783342308-f792dbdd2a64?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 4" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 5" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 6" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 7" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80" alt="Hero Craft 8" class="hero-slide">
+                    <!-- Guitar Slide -->
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Hero Guitar Craft" class="hero-slide">
+                    <!-- Cups Slide -->
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80" alt="Hero Ceramic Cups" class="hero-slide">
+                </div>
+            </div>
+
+            <!-- Heading, Description & Action Button Moved Down Underneath -->
+            <div class="flex flex-col items-center text-center max-w-3xl mx-auto z-10">
+                <span class="inline-block py-1 px-4 rounded-full bg-truck-pink/25 text-truck-pink text-xs font-bold tracking-widest uppercase mb-4 border border-truck-pink/40">
+                    ✨ Lahore & Rawalpindi Studios
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-serif font-bold text-white leading-tight mb-4">
+                    Immersive <span class="text-truck-cyan italic">Truck Art</span> Heritage
+                </h1>
+                <p class="text-truck-sand/80 text-base sm:text-lg mb-6 font-light leading-relaxed">
+                    Experience authentic Pakistani craft design with high-impact visuals. Discover hand-painted acoustic guitars, vibrant ceramic tea sets, massive statement walls, and metal artifacts.
+                </p>
+                <a href="#catalog" class="inline-block px-8 py-4 bg-gradient-to-r from-truck-pink to-truck-gold text-truck-900 font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">
+                    Explore Gallery
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Massive Centered Catalog Section -->
+    <main id="catalog" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+            <p class="text-truck-cyan text-sm tracking-widest uppercase font-semibold mb-2">High-Impact Visual Showcase</p>
+            <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white">The Grand Artisan Collection</h2>
+            <p class="text-truck-sand/70 text-sm mt-3">Hover over any piece to experience dynamic alternative angle lighting.</p>
+        </div>
+
+        <div id="product-grid" class="space-y-16">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <!-- Artisan Story Section -->
+    <section id="story" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="glass-panel rounded-3xl p-8 sm:p-12 lg:p-16 border border-truck-gold/30 shadow-2xl flex flex-col lg:flex-row items-center gap-12" data-aos="fade-up">
+            <div class="flex-1">
+                <span class="text-truck-gold text-xs font-bold tracking-widest uppercase mb-2 block">Generational Tradition</span>
+                <h2 class="text-3xl font-serif font-bold text-white mb-6">Master Brushwork Across Decades</h2>
+                <p class="text-truck-sand/80 font-light leading-relaxed mb-6">
+                    Every element in our collection is forged from raw metal, wood, or ceramic and brought to life through intense layers of vibrant colors, reflective foil details, and traditional Pakistani motifs.
+                </p>
+            </div>
+            <div class="w-full lg:w-1/2 relative h-80 rounded-2xl overflow-hidden glass-badge border border-truck-pink/40">
+                <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=80" alt="Artisan Work" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="glass-panel rounded-3xl p-8 sm:p-12 lg:p-16 border border-truck-cyan/40 shadow-2xl max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <span class="inline-block py-1 px-4 rounded-full bg-truck-cyan/20 text-truck-cyan text-xs font-bold tracking-widest uppercase mb-4 border border-truck-cyan/30">
+                Collectors VIP Club
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">Join Our Exclusive List</h2>
+            <p class="text-truck-sand/80 text-base mb-8 max-w-xl mx-auto font-light">
+                Receive private invitations to limited-edition hand-painted studio drops and custom artisan release dates.
+            </p>
+            <form onsubmit="handleSubscription(event)" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" required placeholder="Enter your email address..." class="flex-1 px-4 py-3 rounded-xl bg-truck-900 border border-truck-cyan/30 text-white placeholder-truck-sand/40 focus:outline-none focus:border-truck-pink">
+                <button type="submit" class="px-6 py-3 bg-gradient-to-r from-truck-pink to-truck-cyan text-white font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">
+                    Subscribe
+                </button>
+            </form>
+            <p id="sub-success" class="text-xs text-truck-gold font-bold hidden mt-4">✓ JazakAllah! You have successfully joined the VIP Club.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-truck-gold/30 bg-truck-900 py-12 text-center text-xs text-truck-sand/60">
+        <p>&copy; 2026 Shalimar Heritage & Artisan Guild. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Slide-out Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md glass-panel border-l border-truck-pink/40 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-truck-gold/20 flex items-center justify-between">
+                    <h3 class="text-xl font-serif font-bold text-truck-gold">Your Shopping Bag</h3>
+                    <button onclick="toggleCart()" class="text-truck-sand/60 hover:text-white p-2">✕</button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-truck-gold/20 bg-truck-900/95">
+                    <div class="flex justify-between text-base font-semibold mb-4">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal" class="text-truck-gold font-serif">PKR 0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full py-4 bg-gradient-to-r from-truck-pink to-truck-gold text-truck-900 font-bold rounded-xl shadow-lg hover:opacity-95 transition-all text-center block">
+                        Order via WhatsApp / COD
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS scroll animations
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // Hero Banner Image Rotation Logic (Loops through all 10 slides)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3500);
+
+        // Product Catalog including Guitar and Ceramic Cups
+        const products = [
+            {
+                id: 1, name: "Master Artisanal Hand-Painted Truck Art Wall Panel", category: "Wall Decor", price: 12500, oldPrice: 16000,
+                img1: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1582582494705-f829b314e694?auto=format&fit=crop&w=1200&q=80", badge: "Masterpiece"
+            },
+            {
+                id: 2, name: "Vibrant Multani Floral Ceramic Serving Platter", category: "Ceramics", price: 4200, oldPrice: 5800,
+                img1: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=80", badge: "Handcrafted"
+            },
+            {
+                id: 3, name: "Traditional Truck-Art Decorated Wooden Storage Chest", category: "Heritage Furniture", price: 19800, oldPrice: 25000,
+                img1: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80", badge: "Collector Item"
+            },
+            {
+                id: 4, name: "Hand-Beaten Brass & Enamel Decorative Urn", category: "Metal Art", price: 8900, oldPrice: 11500,
+                img1: "https://images.unsplash.com/photo-1581783342308-f792dbdd2a64?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=80", badge: "Artisan Pick"
+            },
+            {
+                id: 5, name: "Colorful Truck-Motif Embroidered Floor Cushion", category: "Textiles", price: 5400, oldPrice: 7200,
+                img1: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80", badge: "Bestseller"
+            },
+            {
+                id: 6, name: "Rawalpindi Style Painted Metal Hanging Lantern", category: "Lighting", price: 6700, oldPrice: 8500,
+                img1: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80", badge: "New Arrival"
+            },
+            {
+                id: 7, name: "Lahore Heritage Motifs Decorative Wall Plate", category: "Ceramics", price: 3500, oldPrice: 4800,
+                img1: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1612196808214-b8c1cd21d85b?auto=format&fit=crop&w=1200&q=80", badge: "Traditional"
+            },
+            {
+                id: 8, name: "Custom Hand-Painted Miniature Truck Model", category: "Collectibles", price: 9500, oldPrice: 13000,
+                img1: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80", badge: "Limited Edition"
+            },
+            {
+                id: 9, name: "Hand-Painted Artisan Acoustic Guitar masterpiece", category: "Musical Art", price: 28000, oldPrice: 35000,
+                img1: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1467453673504-9842827435f3?auto=format&fit=crop&w=1200&q=80", badge: "Exclusive"
+            },
+            {
+                id: 10, name: "Traditional Truck-Art Handcrafted Ceramic Tea Cups (Set of 4)", category: "Tableware", price: 4500, oldPrice: 6000,
+                img1: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=1200&q=80", badge: "Popular"
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('shalimar_guild_cart')) || [];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map((p) => `
+                <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-truck-gold/20 flex flex-col group relative shadow-2xl" data-aos="fade-up">
+                    
+                    <!-- MASSIVE CENTERED PHOTO -->
+                    <div class="relative h-[420px] sm:h-[520px] w-full rounded-2xl overflow-hidden img-swap-container bg-truck-800 shadow-inner mb-6">
+                        <span class="absolute top-4 left-4 z-30 glass-badge text-truck-cyan text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                            ${p.badge}
+                        </span>
+                        <img src="${p.img1}" alt="${p.name}" class="w-full h-full object-cover img-primary absolute inset-0 z-10">
+                        <img src="${p.img2}" alt="${p.name} alternate" class="w-full h-full object-cover img-secondary absolute inset-0 z-20">
+                    </div>
+
+                    <!-- HEADINGS DOWN UNDER THE PHOTOS -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left pt-2">
+                        <div>
+                            <span class="text-xs text-truck-cyan uppercase tracking-widest font-bold">${p.category}</span>
+                            <h3 class="font-serif font-bold text-xl sm:text-2xl text-white mt-1 group-hover:text-truck-pink transition-colors leading-snug">${p.name}</h3>
+                            <div class="flex items-center justify-center sm:justify-start space-x-3 mt-2">
+                                <span class="text-truck-gold font-serif font-bold text-2xl">PKR ${p.price.toLocaleString()}</span>
+                                <span class="text-truck-sand/40 text-sm line-through">PKR ${p.oldPrice.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="w-full sm:w-auto py-4 px-8 bg-gradient-to-r from-truck-pink to-truck-cyan text-white font-bold rounded-xl shadow-lg hover:opacity-90 transition-all flex items-center justify-center space-x-2 shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            if (existing) { existing.quantity += 1; } else { cart.push({ ...product, quantity: 1 }); }
+            updateCart();
+            toggleCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== productId);
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('shalimar_guild_cart', JSON.stringify(cart));
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            if(!countEl) return;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countEl.textContent = totalCount;
+            subtotalEl.textContent = `PKR ${subtotal.toLocaleString()}`;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="text-center text-truck-sand/50 py-12">Your shopping bag is currently empty.</p>`;
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between glass-badge p-4 rounded-xl border border-truck-gold/20">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.img1}" class="w-16 h-16 object-cover rounded-lg" alt="">
+                        <div>
+                            <h4 class="font-serif font-bold text-sm text-white">${item.name}</h4>
+                            <p class="text-truck-gold text-xs font-semibold mt-1">PKR ${item.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-truck-900 border border-truck-cyan/30 text-truck-cyan flex items-center justify-center font-bold">-</button>
+                        <span class="text-sm font-bold w-6 text-center">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-truck-900 border border-truck-cyan/30 text-truck-cyan flex items-center justify-center font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function handleSubscription(e) {
+            e.preventDefault();
+            document.getElementById('sub-success').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('Your cart is empty!');
+            let message = "As-salamu alaykum! I would like to place an order from Shalimar Guild:\n\n";
+            cart.forEach(i => { message += `- ${i.name} (x${i.quantity}) - PKR ${(i.price * i.quantity).toLocaleString()}\n`; });
+            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            message += `\nTotal: PKR ${total.toLocaleString()}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>
