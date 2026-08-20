@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Luxury Salon & Bridal Studio | Karachi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        salon: {
+                            bg: '#fbf9f6',       /* Soft Warm Pearl */
+                            card: '#ffffff',     /* Pure White Card */
+                            surface: '#f3eee6',  /* Alabaster Sand */
+                            accent: '#9a3412',   /* Warm Terracotta / Rich Bronze */
+                            gold: '#b45309',     /* Champagne Gold */
+                            muted: '#78716c'     /* Muted Taupe */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .service-card-img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:hover .service-card-img {
+            transform: scale(1.05);
+        }
+
+        /* Hero Banner Fade In + Zoom Out Animation */
+        @keyframes heroZoomOut {
+            0% { transform: scale(1.12); opacity: 0; filter: brightness(1.1) saturate(1.15); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1.15) saturate(1.2); }
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.12);
+            filter: brightness(1.1) saturate(1.15);
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            animation: heroZoomOut 6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-salon-bg text-stone-800 font-sans antialiased selection:bg-salon-accent selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-stone-900 text-stone-200 text-xs tracking-widest uppercase font-medium text-center py-2.5 px-4 relative z-50">
+        ✦ Clifton & DHA, Karachi ✦ Professional Pakistani Stylists ✦ Book via WhatsApp ✦
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-salon-bg/95 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl lg:text-3xl font-heading font-bold tracking-tight text-stone-900 flex items-center gap-2">
+                Aura <span class="text-salon-accent italic font-normal">Karachi</span>
+            </a>
+            <nav class="hidden md:flex space-x-10 text-xs font-semibold tracking-widest uppercase text-stone-600">
+                <a href="#services" class="hover:text-salon-accent transition-colors">Services & Menu</a>
+                <a href="#bridals" class="hover:text-salon-accent transition-colors">Bridal Studio</a>
+                <a href="#booking" class="hover:text-salon-accent transition-colors">Book Appointment</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="#booking" class="hidden sm:inline-block px-5 py-2.5 bg-salon-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-amber-900 transition-all shadow-md">
+                    Reserve Slot
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Fade-In Zoom-Out Slider & Pakistani Stylists Working -->
+    <section class="relative w-full h-[85vh] min-h-[600px] flex items-end pb-16 overflow-hidden bg-stone-900">
+        <div id="hero-slider" class="absolute inset-0 w-full h-full z-0">
+            <!-- Pakistani female stylist doing professional blow dryer & hair setting -->
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1800&q=85" alt="Pakistani Stylist Working with Blow Dryer" class="hero-slide active">
+            <!-- Stylist performing facial masking -->
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1800&q=85" alt="Facial Masking and Skin Treatment" class="hero-slide">
+            <!-- Stylist doing precision hair cutting -->
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=85" alt="Hair Cutting and Styling Session" class="hero-slide">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
+        </div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full space-y-6" data-aos="fade-up">
+            <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold px-3.5 py-1.5 bg-black/40 backdrop-blur-md rounded-full inline-block border border-white/20">
+                Karachi's Premier Hair & Makeup Destination ✦ Clifton Block 4
+            </span>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold leading-tight tracking-tight text-white max-w-4xl drop-shadow-md">
+                Expert Care by <span class="text-amber-300 italic">Skilled Hands</span>
+            </h1>
+            <p class="text-stone-200 text-base sm:text-lg leading-relaxed font-light max-w-2xl drop-shadow">
+                Experience expert bridal makeovers, precise hair cutting, blow drying, facial masking, and deep skin treatments by our professional team.
+            </p>
+            <div class="pt-2 flex items-center space-x-6">
+                <a href="#booking" class="px-8 py-4 bg-salon-accent text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-amber-900 transition-all shadow-lg">
+                    Book Via WhatsApp
+                </a>
+                <a href="#services" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-white/20 transition-all">
+                    View Price Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Menu Section with Updated Working Service Imagery -->
+    <main id="services" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12" data-aos="fade-up">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-salon-accent font-semibold mb-2">Signature Treatments</p>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-stone-900">Salon Services & Pricing</h2>
+            </div>
+            <p class="text-stone-500 text-sm mt-2 md:mt-0 font-light">Custom packages available for weddings and formal events in Karachi.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 1: Facial Masking -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85" alt="Facial Masking" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Skin Care</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Deep Facial Masking & Glow</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Botanical clay masking and infusion therapy administered by our skin specialists for radiant skin.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 6,500</span>
+                        <button onclick="selectService('Deep Facial Masking & Glow', '6,500')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2: Hair Cutting -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85" alt="Hair Cutting" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Hair Styling</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Precision Hair Cutting & Layers</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Custom haircut styles, trimming, and face-framing layers tailored by our expert stylists.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 3,500</span>
+                        <button onclick="selectService('Precision Hair Cutting & Layers', '3,500')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3: Blow Dryer -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85" alt="Blow Dryer Session" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Blow Dryer</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Professional Blow Dryer & Volume</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Bouncy blowout, smooth finish, or sleek straightening using premium thermal protection products.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 4,000</span>
+                        <button onclick="selectService('Professional Blow Dryer & Volume', '4,000')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4: Deep Masking & Hair Treatment -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=85" alt="Deep Masking" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Deep Care</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Deep Masking & Hair Repair</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Intense conditioning mask treatment to repair damaged cuticles and restore natural shine.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 7,500</span>
+                        <button onclick="selectService('Deep Masking & Hair Repair', '7,500')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 5: Removing Hairs / Waxing & Threading -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85" alt="Hair Removal" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Grooming</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Precise Hair Removal & Threading</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Gentle waxing and eyebrow threading services performed carefully for smooth skin results.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 2,500</span>
+                        <button onclick="selectService('Precise Hair Removal & Threading', '2,500')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 6: Signature Bridal -->
+            <div class="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-all" data-aos="fade-up">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=85" alt="Bridal Makeup" class="w-full h-full object-cover service-card-img">
+                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded">Bridal Glam</span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-stone-900">Signature Bridal Makeover</h3>
+                        <p class="text-xs text-stone-500 font-light mt-1 leading-relaxed">Complete HD bridal glam including skin prep, custom hairstyle, and dupatta draping.</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t border-stone-100 mt-6">
+                        <span class="text-salon-accent font-heading font-bold text-base">PKR 45,000+</span>
+                        <button onclick="selectService('Signature Bridal Makeover', '45,000')" class="px-4 py-2 bg-salon-surface border border-stone-300 text-stone-900 text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-salon-accent hover:text-white hover:border-salon-accent transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bridal Studio Highlights -->
+    <section id="bridals" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="bg-salon-surface border border-stone-300 p-8 sm:p-14 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-salon-accent/10 flex items-center justify-center text-salon-accent text-xl font-bold">01</div>
+                <h3 class="font-heading font-bold text-lg text-stone-900">Exclusive Bridal Suite</h3>
+                <p class="text-sm text-stone-600 font-light leading-relaxed">Private, luxurious room for brides and family members with dedicated makeup artists and dress-draping specialists.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-salon-accent/10 flex items-center justify-center text-salon-accent text-xl font-bold">02</div>
+                <h3 class="font-heading font-bold text-lg text-stone-900">International Products</h3>
+                <p class="text-sm text-stone-600 font-light leading-relaxed">We use 100% authentic luxury brands including MAC, Huda Beauty, Anastasia, Dior, and Charlotte Tilbury.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="w-12 h-12 rounded-lg bg-salon-accent/10 flex items-center justify-center text-salon-accent text-xl font-bold">03</div>
+                <h3 class="font-heading font-bold text-lg text-stone-900">Prime Karachi Locations</h3>
+                <p class="text-sm text-stone-600 font-light leading-relaxed">Conveniently situated in Clifton & Defence (DHA) with valet parking and comfortable private client service.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Booking Form -->
+    <section id="booking" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="border border-stone-300 p-8 sm:p-14 rounded-2xl max-w-3xl mx-auto space-y-6 bg-white shadow-sm" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-salon-accent font-semibold">Instant Reservation</span>
+                <h2 class="text-3xl font-heading font-bold text-stone-900">Book Your Appointment</h2>
+                <p class="text-stone-500 text-sm font-light">Fill out your details below to instantly connect with our front desk via WhatsApp.</p>
+            </div>
+            <form onsubmit="handleBooking(event)" class="space-y-4 pt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" id="client-name" required placeholder="Your Full Name..." class="w-full px-4 py-3 bg-salon-bg border border-stone-300 rounded-lg text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:border-salon-accent">
+                    <input type="tel" id="client-phone" required placeholder="WhatsApp Number (e.g. 0300...) " class="w-full px-4 py-3 bg-salon-bg border border-stone-300 rounded-lg text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:border-salon-accent">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <select id="selected-service" class="w-full px-4 py-3 bg-salon-bg border border-stone-300 rounded-lg text-stone-900 text-sm focus:outline-none focus:border-salon-accent">
+                        <option value="Deep Facial Masking & Glow">Deep Facial Masking & Glow - PKR 6,500</option>
+                        <option value="Precision Hair Cutting & Layers">Precision Hair Cutting & Layers - PKR 3,500</option>
+                        <option value="Professional Blow Dryer & Volume">Professional Blow Dryer & Volume - PKR 4,000</option>
+                        <option value="Deep Masking & Hair Repair">Deep Masking & Hair Repair - PKR 7,500</option>
+                        <option value="Precise Hair Removal & Threading">Precise Hair Removal & Threading - PKR 2,500</option>
+                        <option value="Signature Bridal Makeover">Signature Bridal Makeover - PKR 45,000</option>
+                    </select>
+                    <input type="date" id="booking-date" required class="w-full px-4 py-3 bg-salon-bg border border-stone-300 rounded-lg text-stone-900 text-sm focus:outline-none focus:border-salon-accent">
+                </div>
+                <button type="submit" class="w-full py-4 bg-salon-accent text-white text-xs uppercase tracking-widest font-bold rounded-lg hover:bg-amber-900 transition-all">
+                    Confirm Appointment via WhatsApp
+                </button>
+            </form>
+            <p id="booking-success" class="text-xs text-amber-600 font-semibold text-center hidden">✓ Booking details ready! Redirecting to WhatsApp...</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-stone-200 py-12 text-center text-xs text-stone-500 bg-salon-surface">
+        <p>&copy; 2026 Aura Luxury Salon & Bridal Studio Karachi. All Rights Reserved.</p>
+    </footer>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 80, duration: 800 });
+
+        // Hero Slider Rotation with Fade-In & Zoom-Out
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        function selectService(serviceName, price) {
+            const selectEl = document.getElementById('selected-service');
+            for(let i=0; i<selectEl.options.length; i++) {
+                if(selectEl.options[i].value.includes(serviceName)) {
+                    selectEl.selectedIndex = i;
+                    break;
+                }
+            }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value;
+            const phone = document.getElementById('client-phone').value;
+            const service = document.getElementById('selected-service').value;
+            const date = document.getElementById('booking-date').value;
+
+            document.getElementById('booking-success').classList.remove('hidden');
+
+            const message = `Hello Aura Salon Karachi,\n\nI would like to book an appointment.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nPreferred Date: ${date}\n\nPlease confirm availability!`;
+
+            setTimeout(() => {
+                window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            }, 800);
+        }
+    </script>
+</body>
+</html>
