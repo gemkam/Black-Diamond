@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multan Bookshop | Independent Book Publishers & Literary Guild</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        editorial: {
+                            bg: '#f9f6f0',       /* Warm Cream */
+                            card: '#ffffff',     /* Pure White */
+                            dark: '#1c1917',     /* Warm Charcoal */
+                            accent: '#9a3412',   /* Terracotta / Rust */
+                            gold: '#b45309',     /* Deep Ochre Gold */
+                            muted: '#78716c'     /* Warm Stone Gray */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Editorial Image Hover Transition Styles */
+        .img-swap-container { position: relative; overflow: hidden; background: #f0ebe1; }
+        .img-swap-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-primary { opacity: 1; z-index: 10; transform: scale(1); }
+        .img-secondary { opacity: 0; z-index: 20; transform: scale(1.04); }
+        
+        .img-swap-container:hover .img-primary { opacity: 0; transform: scale(1.04); }
+        .img-swap-container:hover .img-secondary { opacity: 1; transform: scale(1); }
+
+        /* Hero Slider Transition */
+        .hero-slide { opacity: 0; transition: opacity 1.2s ease-in-out; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .hero-slide.active { opacity: 1; }
+    </style>
+</head>
+<body class="bg-editorial-bg text-editorial-dark font-sans antialiased selection:bg-editorial-accent selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-editorial-dark text-editorial-bg text-xs tracking-widest uppercase font-medium text-center py-2.5 px-4">
+        ✦ Multan Bookshop — Free Nationwide Delivery on Orders Over PKR 2,000 ✦
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-editorial-bg/90 backdrop-blur-md border-b border-editorial-dark/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl lg:text-3xl font-serif font-bold tracking-tight text-editorial-dark">
+                Multan <span class="text-editorial-accent italic font-normal">Bookshop</span>
+            </a>
+            <nav class="hidden md:flex space-x-10 text-xs font-semibold tracking-widest uppercase text-editorial-muted">
+                <a href="#catalog" class="hover:text-editorial-dark transition-colors">Catalog</a>
+                <a href="#story" class="hover:text-editorial-dark transition-colors">About Shop</a>
+                <a href="#sale" class="hover:text-editorial-accent transition-colors">Grand Sale</a>
+                <a href="#newsletter" class="hover:text-editorial-dark transition-colors">Journal</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-full border border-editorial-dark/20 hover:border-editorial-accent transition-all group">
+                    <svg class="w-5 h-5 text-editorial-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-editorial-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Editorial Hero Section -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Column: Editorial Typography -->
+            <div class="lg:col-span-5 space-y-6" data-aos="fade-right">
+                <span class="text-xs uppercase tracking-widest text-editorial-accent font-semibold block">Edition 2026 — Literary Quarterly</span>
+                <h1 class="text-4xl sm:text-6xl font-serif font-bold leading-tight tracking-tight text-editorial-dark">
+                    Stories That <br><span class="italic font-normal text-editorial-accent">Shape Minds</span>
+                </h1>
+                <p class="text-editorial-muted text-base leading-relaxed font-light">
+                    Explore thoughtful paperbacks, award-winning novels, children's storybooks, satirical humor collections, and classic Urdu & English literature bound for modern readers at Multan Bookshop.
+                </p>
+                <div class="pt-4 flex items-center space-x-6">
+                    <a href="#catalog" class="px-8 py-4 bg-editorial-dark text-editorial-bg text-xs font-bold uppercase tracking-widest rounded-none hover:bg-editorial-accent transition-all">
+                        Browse Bookstore
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Full Space Rotating Slider -->
+            <div class="lg:col-span-7 relative h-[420px] sm:h-[520px] rounded-2xl overflow-hidden shadow-2xl bg-editorial-card border border-editorial-dark/10" data-aos="fade-left">
+                <span class="absolute top-4 left-4 z-30 bg-editorial-dark/80 backdrop-blur-md text-editorial-bg text-[11px] font-medium tracking-widest uppercase px-3.5 py-1.5">
+                    Featured Library Showcase
+                </span>
+                <div id="hero-slider" class="w-full h-full relative">
+                    <!-- Book photography slides -->
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=80" alt="Book 1" class="hero-slide active">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80" alt="Book 2" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?auto=format&fit=crop&w=1200&q=80" alt="Book 3" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=1200&q=80" alt="Book 4" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&w=1200&q=80" alt="Book 5" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1200&q=80" alt="Book 6" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80" alt="Book 7" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=1200&q=80" alt="Book 8" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1200&q=80" alt="Book 9" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80" alt="Book 10" class="hero-slide">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <main id="catalog" class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-editorial-dark/10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12" data-aos="fade-up">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-editorial-accent font-semibold mb-2">Curated Publications</p>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-editorial-dark">Featured Titles & Novels</h2>
+            </div>
+            <p class="text-editorial-muted text-sm mt-2 md:mt-0 font-light">Hover over any book to view back cover or alternative edition art.</p>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <!-- Publisher Statement Section -->
+    <section id="story" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="bg-editorial-card border border-editorial-dark/10 p-8 sm:p-16 rounded-2xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+            <div class="space-y-6">
+                <span class="text-xs uppercase tracking-widest text-editorial-accent font-semibold">The Bookshop Heritage</span>
+                <h2 class="text-3xl font-serif font-bold text-editorial-dark">Championing Literature in Multan</h2>
+                <p class="text-editorial-muted text-sm leading-relaxed font-light">
+                    Multan Bookshop works closely with local authors, illustrators, and translators to produce high-grade physical editions. From illustrated children's adventures that spark imagination to sharp literary satire and immersive regional novels, our mission is to keep the printed word vibrant.
+                </p>
+            </div>
+            <div class="relative h-72 rounded-xl overflow-hidden bg-editorial-bg">
+                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80" alt="Library Bookshelf" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Massive Grand Sale Offer Section (Updated Colors: Rich Emerald & Amber Tones) -->
+    <section id="sale" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="relative rounded-3xl overflow-hidden bg-emerald-950 text-emerald-50 p-8 sm:p-16 shadow-2xl border border-emerald-500/30" data-aos="zoom-in">
+            <!-- Decorative background glow/accent -->
+            <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-24 -top-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-2xl mx-auto text-center space-y-6">
+                <span class="inline-block bg-amber-600 text-white text-[11px] font-bold tracking-widest uppercase px-4 py-1.5 rounded-full shadow-md">
+                    Annual Book Fair Sale ✦ Up to 40% Off
+                </span>
+                <h2 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-white">
+                    The Grand <span class="italic font-normal text-amber-400">Literary Clearance</span>
+                </h2>
+                <p class="text-emerald-100/90 text-base sm:text-lg font-light leading-relaxed">
+                    Build your personal home library. Take advantage of heavy markdowns across all fiction, children's picture books, poetry collections, and humor anthologies.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#catalog" class="w-full sm:w-auto px-8 py-4 bg-amber-500 text-emerald-950 font-bold text-xs uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                        Browse Sale Books
+                    </a>
+                    <a href="#newsletter" class="w-full sm:w-auto px-8 py-4 border border-emerald-500/40 text-emerald-100 font-bold text-xs uppercase tracking-widest hover:border-amber-400 hover:text-white transition-all">
+                        Join Reader's Club
+                    </a>
+                </div>
+                <p class="text-xs text-emerald-300/80 italic pt-2">Use code <span class="text-amber-400 font-mono font-semibold">READ40</span> at checkout via WhatsApp for extra bundle perks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div class="border border-editorial-dark/20 p-8 sm:p-16 rounded-2xl text-center max-w-3xl mx-auto space-y-6 bg-editorial-card" data-aos="fade-up">
+            <span class="text-xs uppercase tracking-widest text-editorial-accent font-semibold">Reader's Gazette</span>
+            <h2 class="text-3xl font-serif font-bold text-editorial-dark">Join Our Weekly Book Dispatch</h2>
+            <p class="text-editorial-muted text-sm max-w-md mx-auto font-light">
+                Receive curated reviews, author interviews, early access announcements for new novel releases, and reading recommendations.
+            </p>
+            <form onsubmit="handleSubscription(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
+                <input type="email" required placeholder="Your email address..." class="flex-1 px-4 py-3 bg-editorial-bg border border-editorial-dark/20 text-editorial-dark placeholder-editorial-muted/50 text-sm focus:outline-none focus:border-editorial-accent">
+                <button type="submit" class="px-6 py-3 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-widest font-bold hover:bg-editorial-accent transition-all">
+                    Subscribe
+                </button>
+            </form>
+            <p id="sub-success" class="text-xs text-editorial-gold font-semibold hidden">✓ JazakAllah! You are now subscribed to the Literary Gazette.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-editorial-dark/10 py-12 text-center text-xs text-editorial-muted">
+        <p>&copy; 2026 Multan Bookshop. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Slide-out Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-editorial-dark/50 backdrop-blur-xs transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-editorial-card border-l border-editorial-dark/20 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-editorial-dark/10 flex items-center justify-between">
+                    <h3 class="text-lg font-serif font-bold text-editorial-dark">Your Book Cart</h3>
+                    <button onclick="toggleCart()" class="text-editorial-muted hover:text-editorial-dark p-2">✕</button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-editorial-dark/10 bg-editorial-bg">
+                    <div class="flex justify-between text-sm font-semibold mb-4 text-editorial-dark">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal" class="font-serif font-bold">PKR 0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full py-4 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-widest font-bold hover:bg-editorial-accent transition-all text-center block">
+                        Order via WhatsApp / COD
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 80, duration: 800 });
+
+        // Hero Slider Rotation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3800);
+
+        // Book Catalog (10 Literary Items)
+        const products = [
+            {
+                id: 1, name: "Echoes of the Multan Walled City: A Historical Novel", category: "Contemporary Novel", price: 1850, oldPrice: 2400,
+                img1: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80", badge: "Bestseller"
+            },
+            {
+                id: 2, name: "The Grand Adventures of Little Ahmed (Illustrated Children's Book)", category: "Children's Book", price: 1200, oldPrice: 1600,
+                img1: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1200&q=80", badge: "Kids Favorite"
+            },
+            {
+                id: 3, name: "Pakistani Office Politics & Other Calamities (Satirical Humor)", category: "Funny & Satire", price: 950, oldPrice: 1300,
+                img1: "https://images.unsplash.com/photo-1495640388908-05fa85288e61?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&w=1200&q=80", badge: "Staff Pick"
+            },
+            {
+                id: 4, name: "Verses of the Northern Valleys: Bilingual Urdu & English Poetry", category: "Poetry Anthology", price: 1500, oldPrice: 2000,
+                img1: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1200&q=80", badge: "Award Winner"
+            },
+            {
+                id: 5, name: "The Art of Chai & Conversation: Cultural Essays", category: "Literature", price: 1100, oldPrice: 1500,
+                img1: "https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80", badge: "New Release"
+            },
+            {
+                id: 6, name: "Bedtime Folktales from Sindh & Punjab (Illustrated Hardcover)", category: "Children's Book", price: 1750, oldPrice: 2200,
+                img1: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=1200&q=80", badge: "Classic"
+            },
+            {
+                id: 7, name: "Shaheen's Flight: A Modern Corporate Thriller Novel", category: "Contemporary Novel", price: 1650, oldPrice: 2100,
+                img1: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=80", badge: "Suspense"
+            },
+            {
+                id: 8, name: "Shaadi Season Survival Guide: A Hilarious Memoir", category: "Funny & Satire", price: 1050, oldPrice: 1400,
+                img1: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1495640388908-05fa85288e61?auto=format&fit=crop&w=1200&q=80", badge: "Trending"
+            },
+            {
+                id: 9, name: "Masterpieces of Classical Sufi Ghazals & Commentary", category: "Poetry Anthology", price: 2100, oldPrice: 2800,
+                img1: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=1200&q=80", badge: "Collector Edition"
+            },
+            {
+                id: 10, name: "The Little Moon Explorer: Bedtime Stories for Smart Toddlers", category: "Children's Book", price: 1350, oldPrice: 1800,
+                img1: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+                img2: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80", badge: "Top Seller"
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('multan_bookshop_cart')) || [];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map((p) => `
+                <div class="bg-editorial-card border border-editorial-dark/10 rounded-xl overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up">
+                    <div class="relative h-[380px] sm:h-[440px] w-full img-swap-container">
+                        <span class="absolute top-4 left-4 z-30 bg-editorial-dark/80 backdrop-blur-md text-editorial-bg text-[10px] font-semibold tracking-widest uppercase px-3 py-1">
+                            ${p.badge}
+                        </span>
+                        <img src="${p.img1}" alt="${p.name}" class="img-primary">
+                        <img src="${p.img2}" alt="${p.name} alternate view" class="img-secondary">
+                    </div>
+                    <div class="p-6 sm:p-8 flex flex-col flex-1 justify-between bg-editorial-card">
+                        <div>
+                            <span class="text-[11px] text-editorial-accent uppercase tracking-widest font-semibold">${p.category}</span>
+                            <h3 class="font-serif font-bold text-xl sm:text-2xl text-editorial-dark mt-1 group-hover:text-editorial-accent transition-colors">${p.name}</h3>
+                        </div>
+                        <div class="pt-6 flex items-center justify-between border-t border-editorial-dark/10 mt-6">
+                            <div>
+                                <span class="text-editorial-dark font-serif font-bold text-xl">PKR ${p.price.toLocaleString()}</span>
+                                <span class="text-editorial-muted text-xs line-through ml-2">PKR ${p.oldPrice.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="px-5 py-2.5 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-widest font-bold hover:bg-editorial-accent transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            if (existing) { existing.quantity += 1; } else { cart.push({ ...product, quantity: 1 }); }
+            updateCart();
+            toggleCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== productId);
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('multan_bookshop_cart', JSON.stringify(cart));
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            if(!countEl) return;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countEl.textContent = totalCount;
+            subtotalEl.textContent = `PKR ${subtotal.toLocaleString()}`;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="text-center text-editorial-muted py-12 text-sm font-light">Your book cart is empty.</p>`;
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between bg-editorial-bg p-4 rounded-lg border border-editorial-dark/10">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.img1}" class="w-14 h-14 object-cover rounded" alt="">
+                        <div>
+                            <h4 class="font-serif font-bold text-xs text-editorial-dark">${item.name}</h4>
+                            <p class="text-editorial-accent text-xs font-semibold mt-1">PKR ${item.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-editorial-card border border-editorial-dark/20 text-editorial-dark text-xs font-bold flex items-center justify-center">-</button>
+                        <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-editorial-card border border-editorial-dark/20 text-editorial-dark text-xs font-bold flex items-center justify-center">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function handleSubscription(e) {
+            e.preventDefault();
+            document.getElementById('sub-success').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('Your cart is empty!');
+            let message = "As-salamu alaykum! I would like to order the following books from Multan Bookshop:\n\n";
+            cart.forEach(i => { message += `- ${i.name} (x${i.quantity}) - PKR ${(i.price * i.quantity).toLocaleString()}\n`; });
+            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            message += `\nTotal Subtotal: PKR ${total.toLocaleString()}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>
