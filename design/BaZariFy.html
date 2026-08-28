@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaZariFy — Quality Products at Unbeatable Prices</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --gold: #d4af37;
+    --gold-light: #f0d878;
+  }
+  body { background:#000; color:#fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .gold-gradient {
+    background: linear-gradient(135deg, #f0d878 0%, #d4af37 50%, #b8912c 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .glass-logo {
+    background: linear-gradient(120deg, #f0d878 0%, #d4af37 45%, #b8912c 55%, #f0d878 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: glass-shine 3.5s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(212,175,55,.25);
+  }
+  @keyframes glass-shine { 0%{background-position:200% 0} 50%{background-position:0% 0} 100%{background-position:-200% 0} }
+  .card { background:#0a0a0a; border:1px solid #1f1f1f; }
+  .card:hover { border-color: var(--gold); }
+
+  .category-card { position:relative; overflow:hidden; box-shadow:0 0 0 rgba(212,175,55,0); transition:box-shadow .35s,transform .3s,border-color .3s; }
+  .category-card:hover { box-shadow:0 8px 24px -8px rgba(212,175,55,.35); transform:scale(1.02); }
+  .category-glow { position:absolute; bottom:0; left:10%; right:10%; height:3px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:0; transform:scaleX(.3); transition:opacity .35s,transform .35s; pointer-events:none; }
+  .category-card:hover .category-glow { opacity:1; transform:scaleX(1); box-shadow:0 0 20px 4px rgba(212,175,55,.6); }
+
+  @keyframes kinetic-reveal { 0%{transform:translateY(110%) rotate(4deg);opacity:0} 60%{opacity:1} 100%{transform:translateY(0) rotate(0);opacity:1} }
+  .kinetic-word { display:inline-block; transform:translateY(110%); opacity:0; animation:kinetic-reveal .7s cubic-bezier(.22,1,.36,1) forwards; }
+  .hero-text-dim { background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.15) 100%); }
+
+  .hero-slide { transition: opacity .7s ease-in-out; }
+  .prod-card { transition: all .3s; }
+  .prod-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(0,0,0,.6); }
+  .prod-img-primary { transition: all .5s ease-out; }
+  .prod-card:hover .prod-img-primary { opacity:0; transform:scale(1.1); }
+  .prod-img-hover { opacity:0; transform:scale(1.1); transition: all .5s ease-out; }
+  .prod-card:hover .prod-img-hover { opacity:1; transform:scale(1); }
+
+  .promo-slide { transition: all .9s ease-out; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Announcement -->
+<div class="text-center text-xs py-1.5 bg-neutral-950 text-neutral-400 tracking-wide">
+  Welcome to BaZariFy — Quality products, unbeatable prices
+</div>
+
+<!-- Nav -->
+<header class="sticky top-0 z-50 bg-black/95 backdrop-blur border-b border-neutral-800">
+  <nav class="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between h-16">
+    <a href="https://bazarify-official.vercel.app" class="text-xl md:text-2xl font-bold tracking-tight">
+      <span class="glass-logo">BaZariFy</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm text-neutral-300">
+      <a href="https://bazarify-official.vercel.app" class="hover:text-white">Home</a>
+      <a href="https://bazarify-official.vercel.app/products" class="hover:text-white">All Products</a>
+      <a href="https://bazarify-official.vercel.app/categories/beauty-personal-care" class="hover:text-white">Beauty & Personal Care</a>
+      <a href="https://bazarify-official.vercel.app/categories/electronics-gadgets" class="hover:text-white">Electronics & Gadgets</a>
+      <a href="https://bazarify-official.vercel.app/categories/home-kitchen" class="hover:text-white">Home & Kitchen</a>
+      <a href="https://bazarify-official.vercel.app/categories/lifestyle-accessories" class="hover:text-white">Lifestyle & Accessories</a>
+    </div>
+    <a href="https://bazarify-official.vercel.app/cart" class="text-xs px-3 py-1.5 border border-neutral-700 rounded-full hover:border-[var(--gold)] hover:text-[var(--gold)]">Shop Now</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="relative w-full aspect-[16/9] md:aspect-[21/8] bg-black overflow-hidden" id="hero">
+  <div class="hero-slide absolute inset-0 opacity-100" data-slide="0">
+    <img src="https://bazarify-official.vercel.app/hero/hero1.webp" class="w-full h-full object-cover" alt="Hero 1">
+  </div>
+  <div class="hero-slide absolute inset-0 opacity-0" data-slide="1">
+    <img src="https://bazarify-official.vercel.app/hero/hero2.webp" class="w-full h-full object-cover" alt="Hero 2">
+  </div>
+  <div class="absolute inset-0 hero-text-dim z-[5] pointer-events-none"></div>
+  <div class="absolute inset-0 z-[6] flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-2xl md:text-5xl font-bold text-white drop-shadow-lg" id="kinetic-heading"></h1>
+    <p class="mt-4 text-sm md:text-lg text-neutral-200 drop-shadow-md max-w-xl" id="kinetic-sub"></p>
+  </div>
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2" id="hero-dots"></div>
+</section>
+
+<!-- Collections -->
+<section class="max-w-7xl mx-auto px-4 md:px-6 py-12">
+  <h2 class="text-2xl font-bold mb-6 text-center">Our <span class="gold-gradient">Collections</span></h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <a href="https://bazarify-official.vercel.app/categories/beauty-personal-care" class="category-card card rounded-xl p-6 text-center block">
+      <span class="relative z-10 text-sm md:text-base font-medium">Beauty & Personal Care</span>
+      <span class="category-glow"></span>
+    </a>
+    <a href="https://bazarify-official.vercel.app/categories/electronics-gadgets" class="category-card card rounded-xl p-6 text-center block">
+      <span class="relative z-10 text-sm md:text-base font-medium">Electronics & Gadgets</span>
+      <span class="category-glow"></span>
+    </a>
+    <a href="https://bazarify-official.vercel.app/categories/home-kitchen" class="category-card card rounded-xl p-6 text-center block">
+      <span class="relative z-10 text-sm md:text-base font-medium">Home & Kitchen</span>
+      <span class="category-glow"></span>
+    </a>
+    <a href="https://bazarify-official.vercel.app/categories/lifestyle-accessories" class="category-card card rounded-xl p-6 text-center block">
+      <span class="relative z-10 text-sm md:text-base font-medium">Lifestyle & Accessories</span>
+      <span class="category-glow"></span>
+    </a>
+  </div>
+</section>
+
+<!-- Best Deals -->
+<section class="max-w-7xl mx-auto px-4 md:px-6 py-12">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold">🔥 Best <span class="gold-gradient">Deals</span></h2>
+    <a href="https://bazarify-official.vercel.app/products" class="text-sm text-neutral-400 hover:text-white">View all →</a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <a href="https://bazarify-official.vercel.app/products/fresh-breeze-moe-handheld-electric-fan-cute-fruit-design-portable-mini-desk-fan" class="prod-card card rounded-xl overflow-hidden block">
+      <div class="relative aspect-square bg-neutral-900 overflow-hidden">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/1c58e8a216421596fcb363c865e43d58.jpg?v=1781410779" class="prod-img-primary absolute inset-0 w-full h-full object-cover">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/48d460bc1f3ee827f7ec558ce25a64ce.jpg?v=1781410779" class="prod-img-hover absolute inset-0 w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-[var(--gold)] text-black text-[10px] font-bold px-2 py-1 rounded-full z-10">SALE</span>
+      </div>
+      <div class="p-3">
+        <h3 class="text-sm text-neutral-200 line-clamp-2 min-h-[2.5rem]">Handheld Portable Mini Desk Fan</h3>
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[var(--gold)] font-semibold">Rs. 1,499</span>
+          <span class="text-neutral-500 text-xs line-through">Rs. 1,999</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://bazarify-official.vercel.app/products/khamrah-qahwa-by-lattafa-perfumes-unisex-eau-de-parfum-100ml-premium" class="prod-card card rounded-xl overflow-hidden block">
+      <div class="relative aspect-square bg-neutral-900 overflow-hidden">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/abba984a217dc38b53391d7d2672ecd1.png?v=1781411037" class="prod-img-primary absolute inset-0 w-full h-full object-cover">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/e67025bf259d6f9ef43753cd1df73433.png?v=1781411037" class="prod-img-hover absolute inset-0 w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-[var(--gold)] text-black text-[10px] font-bold px-2 py-1 rounded-full z-10">SALE</span>
+      </div>
+      <div class="p-3">
+        <h3 class="text-sm text-neutral-200 line-clamp-2 min-h-[2.5rem]">Khamrah Qahwa Eau De Parfum 100ml</h3>
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[var(--gold)] font-semibold">Rs. 1,599</span>
+          <span class="text-neutral-500 text-xs line-through">Rs. 1,999</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://bazarify-official.vercel.app/products/steam-iron-powerful-performance-smooth-glide-durable-build-easy-operation-reliable-daily-use-non-rotatable" class="prod-card card rounded-xl overflow-hidden block">
+      <div class="relative aspect-square bg-neutral-900 overflow-hidden">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/5a720539c8dfcac62cacc3a46b204352.jpg?v=1781411332" class="prod-img-primary absolute inset-0 w-full h-full object-cover">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/5f9fe61c35f3d04f0a27631f42b6f865.jpg?v=1781411332" class="prod-img-hover absolute inset-0 w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-[var(--gold)] text-black text-[10px] font-bold px-2 py-1 rounded-full z-10">SALE</span>
+      </div>
+      <div class="p-3">
+        <h3 class="text-sm text-neutral-200 line-clamp-2 min-h-[2.5rem]">Steam Iron — Smooth Glide</h3>
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[var(--gold)] font-semibold">Rs. 1,999</span>
+          <span class="text-neutral-500 text-xs line-through">Rs. 2,399</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://bazarify-official.vercel.app/products/blindspot-rearview-convex-mirror-2pcs-wide-angle-anti-glare-side-mirror-for-cars-vehicles" class="prod-card card rounded-xl overflow-hidden block">
+      <div class="relative aspect-square bg-neutral-900 overflow-hidden">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/1b05d0f717d15df756ca75e4f4e3a78a.jpg?v=1781411122" class="prod-img-primary absolute inset-0 w-full h-full object-cover">
+        <img src="https://cdn.shopify.com/s/files/1/0766/9992/6718/files/2f06fffa4d70fb4c7ddf0ad9e68968e5.jpg?v=1781411122" class="prod-img-hover absolute inset-0 w-full h-full object-cover">
+        <span class="absolute top-2 left-2 bg-[var(--gold)] text-black text-[10px] font-bold px-2 py-1 rounded-full z-10">SALE</span>
+      </div>
+      <div class="p-3">
+        <h3 class="text-sm text-neutral-200 line-clamp-2 min-h-[2.5rem]">Blindspot Rearview Convex Mirror</h3>
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[var(--gold)] font-semibold">Rs. 999</span>
+          <span class="text-neutral-500 text-xs line-through">Rs. 1,399</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- Promo Carousel -->
+<section class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+  <div class="relative w-full aspect-[2/1] md:aspect-[21/9] rounded-2xl overflow-hidden bg-neutral-900" id="promo">
+    <div class="promo-slide absolute inset-0 opacity-100" data-promo="0">
+      <img src="https://bazarify-official.vercel.app/promo/flash-sale.webp" class="w-full h-full object-cover">
+    </div>
+    <div class="promo-slide absolute inset-0 opacity-0" data-promo="1">
+      <img src="https://bazarify-official.vercel.app/promo/summer-sale.webp" class="w-full h-full object-cover">
+    </div>
+    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2" id="promo-dots"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-neutral-800 mt-16">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 grid md:grid-cols-3 gap-8">
+    <div>
+      <p class="font-bold text-lg mb-2"><span class="glass-logo">BaZariFy</span></p>
+      <p class="text-neutral-500 text-sm">Quality products at unbeatable prices.</p>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-white mb-3">Policies</p>
+      <div class="flex flex-col gap-2 text-sm text-neutral-400">
+        <a href="https://bazarify-official.vercel.app/policies/shipping" class="hover:text-white">Shipping Policy</a>
+        <a href="https://bazarify-official.vercel.app/policies/returns" class="hover:text-white">Return & Refund Policy</a>
+        <a href="https://bazarify-official.vercel.app/policies/privacy" class="hover:text-white">Privacy Policy</a>
+        <a href="https://bazarify-official.vercel.app/policies/terms" class="hover:text-white">Terms & Conditions</a>
+      </div>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-white mb-2">Subscribe for offers</p>
+      <a href="https://bazarify-official.vercel.app" class="inline-block bg-[var(--gold)] text-black text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[var(--gold-light)]">Visit Store to Subscribe</a>
+    </div>
+  </div>
+  <div class="border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 text-sm text-neutral-500 flex flex-col md:flex-row justify-between gap-2">
+      <p>&copy; 2026 BaZariFy. All rights reserved.</p>
+      <p class="text-neutral-600">Cash on Delivery available nationwide</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Kinetic hero text
+  function kineticRender(el, text, staggerMs, baseDelay) {
+    el.innerHTML = '';
+    text.split(' ').forEach((word, i) => {
+      const wrap = document.createElement('span');
+      wrap.style.display = 'inline-block';
+      wrap.style.overflow = 'hidden';
+      wrap.style.marginRight = '0.28em';
+      wrap.style.verticalAlign = 'bottom';
+      const inner = document.createElement('span');
+      inner.className = 'kinetic-word';
+      inner.style.animationDelay = (baseDelay + i * staggerMs) + 'ms';
+      inner.textContent = word;
+      wrap.appendChild(inner);
+      el.appendChild(wrap);
+    });
+  }
+  kineticRender(document.getElementById('kinetic-heading'), 'Shop Smarter, Live Better', 60, 0);
+  kineticRender(document.getElementById('kinetic-sub'), 'Quality products at unbeatable prices, delivered nationwide', 35, 250);
+
+  // Hero slideshow
+  const heroSlides = document.querySelectorAll('#hero .hero-slide');
+  const heroDots = document.getElementById('hero-dots');
+  let heroCurrent = 0;
+  heroSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'h-1.5 rounded-full transition-all ' + (i === 0 ? 'w-6 bg-white' : 'w-1.5 bg-white/40');
+    dot.onclick = () => showHero(i);
+    heroDots.appendChild(dot);
+  });
+  function showHero(i) {
+    heroCurrent = i;
+    heroSlides.forEach((s, idx) => s.style.opacity = idx === i ? '1' : '0');
+    [...heroDots.children].forEach((d, idx) => {
+      d.className = 'h-1.5 rounded-full transition-all ' + (idx === i ? 'w-6 bg-white' : 'w-1.5 bg-white/40');
+    });
+  }
+  setInterval(() => {
+    heroCurrent = (heroCurrent + 1) % heroSlides.length;
+    showHero(heroCurrent);
+    kineticRender(document.getElementById('kinetic-heading'), 'Shop Smarter, Live Better', 60, 0);
+    kineticRender(document.getElementById('kinetic-sub'), 'Quality products at unbeatable prices, delivered nationwide', 35, 250);
+  }, 4500);
+
+  // Promo carousel
+  const promoSlides = document.querySelectorAll('#promo .promo-slide');
+  const promoDots = document.getElementById('promo-dots');
+  const directions = [[-60,0],[60,0],[0,-60],[0,60]];
+  let promoCurrent = 0, dirIdx = 0;
+  promoSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'h-1.5 rounded-full transition-all ' + (i === 0 ? 'w-6 bg-white' : 'w-1.5 bg-white/40');
+    dot.onclick = () => showPromo(i);
+    promoDots.appendChild(dot);
+  });
+  function showPromo(i) {
+    promoCurrent = i;
+    promoSlides.forEach((s, idx) => {
+      s.style.opacity = idx === i ? '1' : '0';
+      s.style.transform = idx === i ? 'translate(0,0)' : `translate(${directions[dirIdx][0]}px,${directions[dirIdx][1]}px)`;
+    });
+    [...promoDots.children].forEach((d, idx) => {
+      d.className = 'h-1.5 rounded-full transition-all ' + (idx === i ? 'w-6 bg-white' : 'w-1.5 bg-white/40');
+    });
+  }
+  setInterval(() => {
+    promoCurrent = (promoCurrent + 1) % promoSlides.length;
+    dirIdx = (dirIdx + 1) % directions.length;
+    showPromo(promoCurrent);
+  }, 4000);
+</script>
+
+</body>
+</html>
