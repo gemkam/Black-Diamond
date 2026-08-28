@@ -43,6 +43,64 @@
         .group:hover .card-image-container img {
             transform: scale(1.06);
         }
+
+        /* Floating catalog preview windows */
+        .float-window {
+            position: absolute;
+            width: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,.6);
+            animation: float-bob var(--bob-dur, 6s) ease-in-out infinite,
+                       float-fade var(--fade-dur, 8s) ease-in-out infinite;
+            animation-delay: var(--bob-delay, 0s), var(--fade-delay, 0s);
+            pointer-events: none;
+        }
+        .float-window .fw-bar {
+            display: flex; gap: 4px; padding: 6px 8px; background: #1a1a1a; border-bottom: 1px solid #262626;
+        }
+        .float-window .fw-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .float-window .fw-body {
+            height: 70px; display:flex; align-items:center; justify-content:center;
+            font-family: "Playfair Display", serif; font-weight:700; font-size: 13px; text-align:center; padding: 6px;
+        }
+        @keyframes float-bob {
+            0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+            50% { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+        }
+        @keyframes float-fade {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 0.25; }
+        }
+        @media (max-width: 900px) {
+            .float-window {
+                width: 92px;
+            }
+            .float-window .fw-body {
+                height: 46px;
+                font-size: 9px;
+                padding: 4px;
+            }
+            .float-window .fw-bar {
+                padding: 4px 6px;
+                gap: 3px;
+            }
+            .float-window .fw-dot {
+                width: 4px;
+                height: 4px;
+            }
+        }
+        @media (max-width: 480px) {
+            .float-window {
+                width: 72px;
+            }
+            .float-window .fw-body {
+                height: 38px;
+                font-size: 8px;
+            }
+        }
     </style>
 </head>
 <body class="text-stone-200 antialiased">
@@ -64,20 +122,64 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="overview" class="max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
-        <span class="inline-block px-4 py-1.5 bg-darkhub-accent/10 text-darkhub-accent text-xs font-semibold tracking-widest uppercase rounded-full mb-6 border border-darkhub-accent/20">
-            Executive Digital Showroom
-        </span>
-        <h1 class="text-5xl md:text-7xl font-heading font-bold text-white leading-tight max-w-4xl mx-auto mb-8">
-            The <span class="text-darkhub-accent italic">Black Diamond</span> Portfolio
-        </h1>
-        <p class="text-lg text-darkhub-muted max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-            Centralized access point for all your live business catalogs, inventories, beauty services, and fashion collections.
-        </p>
-        <a href="#catalogs" class="inline-flex items-center gap-3 px-8 py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-xl group">
-            Explore All Catalogs
-            <svg class="w-4 h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-        </a>
+    <section id="overview" class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 text-center overflow-hidden" style="max-width:100vw;">
+
+        <!-- Floating catalog preview windows -->
+        <div class="float-window" style="top:4%; left:2%; --rot:-6deg; --bob-dur:6.5s; --bob-delay:0s; --fade-dur:7.5s; --fade-delay:0s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#0a0a0a,#241b04); color:#d4af37;">BaZariFy</div>
+        </div>
+
+        <div class="float-window" style="top:8%; right:2%; --rot:5deg; --bob-dur:7s; --bob-delay:.6s; --fade-dur:8.5s; --fade-delay:1s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#1a0f16,#3a1226); color:#e8a6c9;">Aura Karachi</div>
+        </div>
+
+        <div class="float-window" style="top:40%; left:0%; --rot:-4deg; --bob-dur:5.8s; --bob-delay:1.2s; --fade-dur:9s; --fade-delay:2s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#0d1410,#1c3324); color:#9fd8b8;">Bookshop</div>
+        </div>
+
+        <div class="float-window" style="top:44%; right:0%; --rot:6deg; --bob-dur:6.2s; --bob-delay:.3s; --fade-dur:7s; --fade-delay:1.4s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#0f291e,#16382a); color:#d4af37;">Lahore Bazar</div>
+        </div>
+
+        <div class="float-window" style="bottom:14%; left:3%; --rot:4deg; --bob-dur:7.4s; --bob-delay:1.8s; --fade-dur:8s; --fade-delay:.5s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#0a0f14,#152233); color:#8fb8e0;">Multan Motors</div>
+        </div>
+
+        <div class="float-window" style="bottom:10%; right:3%; --rot:-5deg; --bob-dur:6.8s; --bob-delay:.9s; --fade-dur:9.5s; --fade-delay:2.4s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#141414,#262626); color:#d4af37;">Shalimar Guild</div>
+        </div>
+
+        <div class="float-window" style="top:1%; left:38%; --rot:-3deg; --bob-dur:5.5s; --bob-delay:2.1s; --fade-dur:7.8s; --fade-delay:1.8s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#141014,#2b1f1a); color:#e0b98f;">Super Painters</div>
+        </div>
+
+        <div class="float-window" style="bottom:1%; left:42%; --rot:3deg; --bob-dur:6.6s; --bob-delay:1.5s; --fade-dur:8.2s; --fade-delay:.8s;">
+            <div class="fw-bar"><span class="fw-dot" style="background:#ff5f57"></span><span class="fw-dot" style="background:#febc2e"></span><span class="fw-dot" style="background:#28c840"></span></div>
+            <div class="fw-body" style="background:linear-gradient(135deg,#140c10,#2e1622); color:#e0a8c0;">Zohra Couture</div>
+        </div>
+
+        <div class="relative z-10">
+            <span class="inline-block px-4 py-1.5 bg-darkhub-accent/10 text-darkhub-accent text-xs font-semibold tracking-widest uppercase rounded-full mb-6 border border-darkhub-accent/20">
+                Executive Digital Showroom
+            </span>
+            <h1 class="text-5xl md:text-7xl font-heading font-bold text-white leading-tight max-w-4xl mx-auto mb-8">
+                The <span class="text-darkhub-accent italic">Black Diamond</span> Portfolio
+            </h1>
+            <p class="text-lg text-darkhub-muted max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                Centralized access point for all your live business catalogs, inventories, beauty services, and fashion collections.
+            </p>
+            <a href="#catalogs" class="inline-flex items-center gap-3 px-8 py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-xl group">
+                Explore All Catalogs
+                <svg class="w-4 h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+        </div>
     </section>
 
     <!-- Catalog Grid Section -->
