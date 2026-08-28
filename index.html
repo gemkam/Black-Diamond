@@ -81,7 +81,7 @@
     <!-- Full-Area Rotating Hero Section -->
     <section id="overview" class="relative w-full h-[650px] flex items-center justify-center text-center overflow-hidden">
         
-        <!-- Rotating Slideshow Background Container (Including Custom Niche Photos) -->
+        <!-- Rotating Slideshow Background Container -->
         <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <!-- 1. Luxury Automotive (Multan Motors) -->
             <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80');"></div>
@@ -124,7 +124,7 @@
     <section id="catalogs" class="max-w-7xl mx-auto px-6 py-16 bg-darkhub-surface border border-darkhub-border rounded-3xl shadow-2xl my-24">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- 1. BaZariFy (Newest) -->
+            <!-- 1. BaZariFy -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-accent/60 flex flex-col shadow-md hover:border-darkhub-accent transition-all duration-300 relative">
                 <span class="absolute top-3 right-3 z-10 text-[10px] uppercase tracking-widest font-bold px-2 py-1 bg-darkhub-accent text-stone-950 rounded-full">Newest</span>
                 <div class="h-52 w-full overflow-hidden card-image-container relative">
@@ -261,8 +261,42 @@
         <p>&copy; 2026 Black Diamond Portfolio Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Slideshow JavaScript -->
+    <!-- Floating AI Assistant Widget -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleChat()" class="flex items-center gap-2 px-5 py-3.5 bg-darkhub-accent text-stone-950 font-bold rounded-full shadow-2xl hover:bg-yellow-500 transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            <span>Ask AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- Chat Window Drawer -->
+    <div id="chatWindow" class="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-darkhub-surface border border-darkhub-border rounded-2xl shadow-2xl flex flex-col hidden overflow-hidden">
+        <!-- Chat Header -->
+        <div class="p-4 bg-darkhub-card border-b border-darkhub-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <h3 class="font-heading font-bold text-white text-sm">Black Diamond Assistant</h3>
+            </div>
+            <button onclick="toggleChat()" class="text-darkhub-muted hover:text-white text-lg font-bold px-2">&times;</button>
+        </div>
+
+        <!-- Chat Body / Messages -->
+        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs text-stone-300">
+            <div class="bg-darkhub-card p-3 rounded-xl border border-darkhub-border max-w-[85%]">
+                Hello! I'm your virtual concierge. Ask me anything about our catalogs, e-commerce stores, automotive listings, or fashion lines!
+            </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="p-3 bg-darkhub-card border-t border-darkhub-border flex gap-2">
+            <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)" class="flex-1 bg-darkhub-bg border border-darkhub-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-darkhub-accent">
+            <button onclick="sendMessage()" class="px-4 py-2 bg-darkhub-accent text-stone-950 font-bold rounded-lg text-xs hover:bg-yellow-500">Send</button>
+        </div>
+    </div>
+
+    <!-- Slideshow & Chatbot JavaScript -->
     <script>
+        // Slideshow Logic
         const slides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
 
@@ -271,9 +305,52 @@
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
         }
-
-        // Change background image every 4.5 seconds
         setInterval(nextSlide, 4500);
+
+        // Chatbot Toggle & Interactive Logic
+        function toggleChat() {
+            const chat = document.getElementById('chatWindow');
+            chat.classList.toggle('hidden');
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            if(!input.value.trim()) return;
+
+            // Append User Message
+            messages.innerHTML += `<div class="bg-darkhub-accent/20 text-white p-3 rounded-xl ml-auto max-w-[85%]">${input.value}</div>`;
+            
+            let userQuery = input.value.toLowerCase();
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Simulated Site Expert Response Logic
+            setTimeout(() => {
+                let reply = "I can help guide you through our executive showcases like BaZariFy, Aura Karachi, or Multan Motors. Feel free to click any card above to explore directly!";
+                
+                if(userQuery.includes('car') || userQuery.includes('automotive') || userQuery.includes('multan motors')) {
+                    reply = "Our Multan Motors catalog features high-end vehicles and 4x4 options. Click 'Open Catalog' on the Multan Motors card to browse the full inventory!";
+                } else if(userQuery.includes('fashion') || userQuery.includes('clothes') || userQuery.includes('zohra')) {
+                    reply = "Zohra Couture showcases luxury formals, seasonal designer wear, and traditional ensembles.";
+                } else if(userQuery.includes('bazarily') || userQuery.includes('shop') || userQuery.includes('ecommerce')) {
+                    reply = "BaZariFy is our newest e-commerce catalog featuring home, kitchen, beauty, and electronics products with Cash on Delivery nationwide.";
+                } else if(userQuery.includes('beauty') || userQuery.includes('salon') || userQuery.includes('aura')) {
+                    reply = "Aura Karachi provides professional salon services including facial masking, hair styling, and bridal studio treatments.";
+                } else if(userQuery.includes('contact') || userQuery.includes('admin')) {
+                    reply = "You can reach out directly to the admin by clicking the 'Contact Admin' button in the top navigation header!";
+                }
+
+                messages.innerHTML += `<div class="bg-darkhub-card p-3 rounded-xl border border-darkhub-border max-w-[85%]">${reply}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 800);
+        }
     </script>
 
 </body>
