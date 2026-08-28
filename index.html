@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Black Diamond | Executive Portfolio & Catalog Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +36,7 @@
             background-color: #0a0a0a;
             background-image: radial-gradient(#1f1f1f 1px, transparent 1px);
             background-size: 32px 32px;
+            -webkit-tap-highlight-color: transparent;
         }
         .card-image-container img {
             transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
@@ -60,60 +61,66 @@
         }
     </style>
 </head>
-<body class="text-stone-200 antialiased">
+<body class="text-stone-200 antialiased selection:bg-darkhub-accent selection:text-stone-950">
 
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-darkhub-bg/90 backdrop-blur-md border-b border-darkhub-border">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-2xl font-heading font-bold text-white tracking-tight flex items-center gap-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl sm:text-2xl font-heading font-bold text-white tracking-tight flex items-center gap-2">
                 Black <span class="text-darkhub-accent font-normal italic">Diamond</span>
             </a>
-            <nav class="flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-darkhub-muted">
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-darkhub-muted">
                 <a href="#overview" class="hover:text-darkhub-accent transition-colors">Overview</a>
                 <a href="#catalogs" class="hover:text-darkhub-accent transition-colors">All Catalogs</a>
                 <a href="mailto:contact@kstech.com" class="px-6 py-2.5 bg-darkhub-accent text-stone-950 rounded-lg font-bold hover:bg-yellow-500 transition-all shadow-lg">
                     Contact Admin
                 </a>
             </nav>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-stone-300 hover:text-darkhub-accent focus:outline-none" aria-label="Toggle Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-darkhub-surface border-b border-darkhub-border px-6 py-5 space-y-4 text-xs font-semibold uppercase tracking-widest">
+            <a href="#overview" onclick="toggleMobileMenu()" class="block text-stone-300 hover:text-darkhub-accent">Overview</a>
+            <a href="#catalogs" onclick="toggleMobileMenu()" class="block text-stone-300 hover:text-darkhub-accent">All Catalogs</a>
+            <a href="mailto:contact@kstech.com" class="block text-center w-full py-3 bg-darkhub-accent text-stone-950 rounded-lg font-bold">Contact Admin</a>
         </div>
     </header>
 
     <!-- Full-Area Rotating Hero Section -->
-    <section id="overview" class="relative w-full h-[650px] flex items-center justify-center text-center overflow-hidden">
+    <section id="overview" class="relative w-full h-[550px] sm:h-[650px] flex items-center justify-center text-center overflow-hidden">
         
         <!-- Rotating Slideshow Background Container -->
         <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <!-- 1. Luxury Automotive (Multan Motors) -->
             <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 2. High-End Beauty & Salon (Aura Karachi) -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 3. Executive Enterprise (Shalimar Guild) -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 4. Gourmet Culinary & Bakery -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 5. High-Fashion Couture (Zohra Couture) -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 6. Modern Home Decor & E-commerce (BaZariFy) -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80');"></div>
-            <!-- 7. Original Open Sign / Portfolio Preview Image -->
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1920&q=80');"></div>
 
-            <!-- Light vignette & contrast gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-darkhub-bg via-black/40 to-darkhub-bg/40 z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-darkhub-bg via-black/50 to-darkhub-bg/50 z-10"></div>
         </div>
 
         <!-- Hero Content Overlay -->
-        <div class="relative z-20 max-w-5xl mx-auto px-6">
-            <span class="inline-block px-4 py-1.5 bg-darkhub-accent/20 text-darkhub-accent text-xs font-semibold tracking-widest uppercase rounded-full mb-6 border border-darkhub-accent/40 backdrop-blur-sm">
+        <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6">
+            <span class="inline-block px-3 sm:px-4 py-1.5 bg-darkhub-accent/20 text-darkhub-accent text-[10px] sm:text-xs font-semibold tracking-widest uppercase rounded-full mb-4 sm:mb-6 border border-darkhub-accent/40 backdrop-blur-sm">
                 Executive Digital Showroom
             </span>
-            <h1 class="text-5xl md:text-7xl font-heading font-bold text-white leading-tight mb-6 drop-shadow-lg">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-white leading-tight mb-4 sm:mb-6 drop-shadow-lg">
                 The <span class="text-darkhub-accent italic">Black Diamond</span> Portfolio
             </h1>
-            <p class="text-lg md:text-xl text-stone-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed drop-shadow-md">
+            <p class="text-sm sm:text-lg md:text-xl text-stone-200 max-w-xl sm:max-w-2xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed drop-shadow-md px-2">
                 Centralized access point for all your live business catalogs, inventories, beauty services, and fashion collections.
             </p>
-            <a href="#catalogs" class="inline-flex items-center gap-3 px-8 py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-2xl group">
+            <a href="#catalogs" class="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-2xl group">
                 Explore All Catalogs
                 <svg class="w-4 h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             </a>
@@ -121,135 +128,135 @@
     </section>
 
     <!-- Catalog Grid Section -->
-    <section id="catalogs" class="max-w-7xl mx-auto px-6 py-16 bg-darkhub-surface border border-darkhub-border rounded-3xl shadow-2xl my-24">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section id="catalogs" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 bg-darkhub-surface border border-darkhub-border rounded-2xl sm:rounded-3xl shadow-2xl my-12 sm:my-24 mx-3 sm:mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
             <!-- 1. BaZariFy -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-accent/60 flex flex-col shadow-md hover:border-darkhub-accent transition-all duration-300 relative">
-                <span class="absolute top-3 right-3 z-10 text-[10px] uppercase tracking-widest font-bold px-2 py-1 bg-darkhub-accent text-stone-950 rounded-full">Newest</span>
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <span class="absolute top-3 right-3 z-10 text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 bg-darkhub-accent text-stone-950 rounded-full shadow">Newest</span>
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="BaZariFy" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">E-commerce</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">BaZariFy</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Home, kitchen, beauty & electronics — quality products with Cash on Delivery nationwide.</p>
                     </div>
-                    <a href="design/BaZariFy.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/BaZariFy.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 2. Aura Karachi -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Aura Karachi" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Beauty & Salon</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Aura Karachi</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Facial masking, hair cutting, blow dryer, and bridal studio services.</p>
                     </div>
-                    <a href="design/Aura Karachi.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/Aura Karachi.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 3. Bookshop -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80" alt="Bookshop" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Literature</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Bookshop Catalog</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Digital books, parenting guides, and literary resources.</p>
                     </div>
-                    <a href="design/bookshop.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/bookshop.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 4. Lahore Bazar -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&w=800&q=80" alt="Lahore Bazar" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Marketplace</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Lahore Bazar</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Online digital store, multi-niche products, and retail catalog.</p>
                     </div>
-                    <a href="design/lahore bazar.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/lahore bazar.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 5. Multan Motors -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="Multan Motors" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Automotive</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Multan Motors</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Luxury vehicle inventory and high-performance 4x4 options.</p>
                     </div>
-                    <a href="design/Multan Motors.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/Multan Motors.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 6. Shalimar Guild -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Shalimar Guild" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Enterprise</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Shalimar Guild</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Corporate portfolio and professional services interface.</p>
                     </div>
-                    <a href="design/Shalimar Guild.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/Shalimar Guild.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 7. Super Painters -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=800&q=80" alt="Super Painters" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Services</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Super Painters</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Professional commercial and residential painting services.</p>
                     </div>
-                    <a href="design/Super Painters.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/Super Painters.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
             <!-- 8. Zohra Couture -->
             <div class="group bg-darkhub-card rounded-2xl overflow-hidden border border-darkhub-border flex flex-col shadow-md hover:border-darkhub-accent/50 transition-all duration-300">
-                <div class="h-52 w-full overflow-hidden card-image-container relative">
+                <div class="h-48 sm:h-52 w-full overflow-hidden card-image-container relative">
                     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" alt="Zohra Couture" class="w-full h-full object-cover filter brightness-90">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkhub-card via-transparent to-transparent"></div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
+                <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest text-darkhub-accent font-bold px-2 py-1 bg-darkhub-accent/10 rounded">Fashion</span>
                         <h2 class="font-heading text-xl font-bold text-white mt-3 mb-1">Zohra Couture</h2>
                         <p class="text-darkhub-muted text-xs font-light mb-6">Shalwar Kameez, luxury formals, and seasonal designer wear.</p>
                     </div>
-                    <a href="design/Zohra Couture.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all">Open Catalog</a>
+                    <a href="design/Zohra Couture.html" target="_blank" class="w-full text-center py-3 bg-darkhub-bg border border-darkhub-border text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-darkhub-accent hover:text-stone-950 hover:border-darkhub-accent transition-all active:scale-[0.98]">Open Catalog</a>
                 </div>
             </div>
 
@@ -257,27 +264,27 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-darkhub-border py-12 bg-darkhub-bg text-center text-xs text-darkhub-muted font-light">
+    <footer class="border-t border-darkhub-border py-12 bg-darkhub-bg text-center text-xs text-darkhub-muted font-light px-4">
         <p>&copy; 2026 Black Diamond Portfolio Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Floating AI Assistant Widget -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <button onclick="toggleChat()" class="flex items-center gap-2 px-5 py-3.5 bg-darkhub-accent text-stone-950 font-bold rounded-full shadow-2xl hover:bg-yellow-500 transition-all">
+    <!-- Floating AI Assistant Widget (Mobile Friendly Scaling) -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+        <button onclick="toggleChat()" class="flex items-center gap-2 px-4 py-3 sm:px-5 sm:py-3.5 bg-darkhub-accent text-stone-950 font-bold rounded-full shadow-2xl hover:bg-yellow-500 transition-all active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
-            <span>Ask AI Assistant</span>
+            <span class="text-xs sm:text-sm">Ask AI Assistant</span>
         </button>
     </div>
 
-    <!-- Chat Window Drawer -->
-    <div id="chatWindow" class="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-darkhub-surface border border-darkhub-border rounded-2xl shadow-2xl flex flex-col hidden overflow-hidden">
+    <!-- Chat Window Drawer (Mobile Responsive Dimensions) -->
+    <div id="chatWindow" class="fixed bottom-20 right-3 left-3 sm:left-auto sm:bottom-24 sm:right-6 z-50 w-auto sm:w-96 h-[460px] sm:h-[500px] bg-darkhub-surface border border-darkhub-border rounded-2xl shadow-2xl flex flex-col hidden overflow-hidden">
         <!-- Chat Header -->
         <div class="p-4 bg-darkhub-card border-b border-darkhub-border flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <h3 class="font-heading font-bold text-white text-sm">Black Diamond Assistant</h3>
+                <h3 class="font-heading font-bold text-white text-xs sm:text-sm">Black Diamond Assistant</h3>
             </div>
-            <button onclick="toggleChat()" class="text-darkhub-muted hover:text-white text-lg font-bold px-2">&times;</button>
+            <button onclick="toggleChat()" class="text-darkhub-muted hover:text-white text-xl font-bold px-2">&times;</button>
         </div>
 
         <!-- Chat Body / Messages -->
@@ -290,11 +297,11 @@
         <!-- Chat Input Form -->
         <div class="p-3 bg-darkhub-card border-t border-darkhub-border flex gap-2">
             <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)" class="flex-1 bg-darkhub-bg border border-darkhub-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-darkhub-accent">
-            <button onclick="sendMessage()" class="px-4 py-2 bg-darkhub-accent text-stone-950 font-bold rounded-lg text-xs hover:bg-yellow-500">Send</button>
+            <button onclick="sendMessage()" class="px-4 py-2 bg-darkhub-accent text-stone-950 font-bold rounded-lg text-xs hover:bg-yellow-500 active:scale-95">Send</button>
         </div>
     </div>
 
-    <!-- Slideshow & Chatbot JavaScript -->
+    <!-- Slideshow, Mobile Menu & Chatbot JavaScript -->
     <script>
         // Slideshow Logic
         const slides = document.querySelectorAll('.hero-slide');
@@ -306,6 +313,12 @@
             slides[currentSlide].classList.add('active');
         }
         setInterval(nextSlide, 4500);
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
 
         // Chatbot Toggle & Interactive Logic
         function toggleChat() {
