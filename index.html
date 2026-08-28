@@ -7,7 +7,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -59,6 +59,46 @@
             opacity: 1;
             transform: scale(1.08);
         }
+
+        /* Pure Static Gold/White Gradient Text without moving shade */
+        .static-gold-title {
+            background: linear-gradient(135deg, #fde047 0%, #ca8a04 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 1));
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Twinkling Sparkles Animation over "Black Diamond" */
+        @keyframes sparkleTwinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.6) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+            }
+        }
+
+        .sparkle-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: #fde047;
+            clip-path: polygon(50% 0%, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0% 50%, 39% 35%);
+            animation: sparkleTwinkle 2.5s ease-in-out infinite;
+            pointer-events: none;
+            box-shadow: 0 0 8px #fde047;
+        }
+
+        .sparkle-1 { width: 14px; height: 14px; top: -10px; left: 15%; animation-delay: 0s; }
+        .sparkle-2 { width: 10px; height: 10px; top: -14px; right: 25%; animation-delay: 0.8s; background: #ffffff; box-shadow: 0 0 10px #ffffff; }
+        .sparkle-3 { width: 12px; height: 12px; bottom: -8px; left: 40%; animation-delay: 1.5s; }
+        .sparkle-4 { width: 9px; height: 9px; top: 30%; right: -12px; animation-delay: 0.4s; background: #ffffff; box-shadow: 0 0 8px #ffffff; }
     </style>
 </head>
 <body class="text-stone-200 antialiased selection:bg-darkhub-accent selection:text-stone-950">
@@ -93,7 +133,7 @@
         </div>
     </header>
 
-    <!-- Full-Area Rotating Hero Section -->
+    <!-- Full-Area Rotating Hero Section (Full Brightness Images) -->
     <section id="overview" class="relative w-full h-[550px] sm:h-[650px] flex items-center justify-center text-center overflow-hidden">
         
         <!-- Rotating Slideshow Background Container -->
@@ -105,22 +145,20 @@
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1920&q=80');"></div>
-
-            <div class="absolute inset-0 bg-gradient-to-t from-darkhub-bg via-black/50 to-darkhub-bg/50 z-10"></div>
         </div>
 
         <!-- Hero Content Overlay -->
-        <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6">
-            <span class="inline-block px-3 sm:px-4 py-1.5 bg-darkhub-accent/20 text-darkhub-accent text-[10px] sm:text-xs font-semibold tracking-widest uppercase rounded-full mb-4 sm:mb-6 border border-darkhub-accent/40 backdrop-blur-sm">
+        <div class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6">
+            <span class="inline-block px-3 sm:px-4 py-1.5 bg-darkhub-bg/80 text-darkhub-accent text-[10px] sm:text-xs font-bold tracking-widest uppercase rounded-full mb-4 sm:mb-6 border border-darkhub-accent/50 backdrop-blur-md shadow-lg">
                 Executive Digital Showroom
             </span>
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-bold text-white leading-tight mb-4 sm:mb-6 drop-shadow-lg">
-                The <span class="text-darkhub-accent italic">Black Diamond</span> Portfolio
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold leading-tight tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] mb-4 sm:mb-6">
+                The <span class="sparkle-container"><span class="static-gold-title italic font-extrabold">Black Diamond</span><span class="sparkle sparkle-1"></span><span class="sparkle sparkle-2"></span><span class="sparkle sparkle-3"></span><span class="sparkle sparkle-4"></span></span> Portfolio
             </h1>
-            <p class="text-sm sm:text-lg md:text-xl text-stone-200 max-w-xl sm:max-w-2xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed drop-shadow-md px-2">
+            <p class="text-sm sm:text-lg md:text-xl text-stone-100 max-w-xl sm:max-w-2xl mx-auto mb-8 sm:mb-10 font-medium leading-relaxed italic drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] px-2">
                 Centralized access point for all your live business catalogs, inventories, beauty services, and fashion collections.
             </p>
-            <a href="#catalogs" class="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-2xl group">
+            <a href="#catalogs" class="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-darkhub-accent text-stone-950 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-yellow-400 transition-all shadow-[0_0_30px_rgba(212,175,55,0.4)] group active:scale-95">
                 Explore All Catalogs
                 <svg class="w-4 h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             </a>
@@ -268,15 +306,15 @@
         <p>&copy; 2026 Black Diamond Portfolio Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Floating AI Assistant Widget (Mobile Friendly Scaling) -->
+    <!-- Floating AI Assistant Widget -->
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
-        <button onclick="toggleChat()" class="flex items-center gap-2 px-4 py-3 sm:px-5 sm:py-3.5 bg-darkhub-accent text-stone-950 font-bold rounded-full shadow-2xl hover:bg-yellow-500 transition-all active:scale-95">
+        <button onclick="toggleChat()" class="flex items-center gap-2 px-4 py-3 sm:px-5 sm:py-3.5 bg-darkhub-accent text-stone-950 font-bold rounded-full shadow-2xl hover:bg-yellow-400 transition-all active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
             <span class="text-xs sm:text-sm">Ask AI Assistant</span>
         </button>
     </div>
 
-    <!-- Chat Window Drawer (Mobile Responsive Dimensions) -->
+    <!-- Chat Window Drawer -->
     <div id="chatWindow" class="fixed bottom-20 right-3 left-3 sm:left-auto sm:bottom-24 sm:right-6 z-50 w-auto sm:w-96 h-[460px] sm:h-[500px] bg-darkhub-surface border border-darkhub-border rounded-2xl shadow-2xl flex flex-col hidden overflow-hidden">
         <!-- Chat Header -->
         <div class="p-4 bg-darkhub-card border-b border-darkhub-border flex items-center justify-between">
@@ -297,7 +335,7 @@
         <!-- Chat Input Form -->
         <div class="p-3 bg-darkhub-card border-t border-darkhub-border flex gap-2">
             <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)" class="flex-1 bg-darkhub-bg border border-darkhub-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-darkhub-accent">
-            <button onclick="sendMessage()" class="px-4 py-2 bg-darkhub-accent text-stone-950 font-bold rounded-lg text-xs hover:bg-yellow-500 active:scale-95">Send</button>
+            <button onclick="sendMessage()" class="px-4 py-2 bg-darkhub-accent text-stone-950 font-bold rounded-lg text-xs hover:bg-yellow-400 active:scale-95">Send</button>
         </div>
     </div>
 
